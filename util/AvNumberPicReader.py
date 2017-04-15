@@ -34,7 +34,10 @@ def getAvNumberPic(html):
         one = {}
         one["av_number"] = content[i]
         one["remote_cover"] = pics[i]
-        one["public_time"] = publictimes[i]
+
+        if len(publictimes) > i:
+            one["public_time"] = publictimes[i]
+
         results.append(one)
         i += 1
 

@@ -11,7 +11,7 @@ def indexActor(url, actor, cache):
 
     for av in results:
         av["actor"] = actor
-        # print(av)
+        print(av)
         avList.append(av)
 
     newList = [];
@@ -26,4 +26,4 @@ def indexActor(url, actor, cache):
 
 
 #print(indexActor("http://www.nh87.cn/guchuanyizhi/", "古川伊织", False))
-print(indexActor("http://www.nh87.cn/sanshangyouya/", "三上悠亚", False))
+print(indexActor(url="http://www.nh87.cn/sanshangyouya/", actor="三上悠亚", cache=True))

@@ -29,6 +29,7 @@ def readMagnet(avNumber):
     req = urllib.request.Request(url=url, headers=headers)
     res = urllib.request.urlopen(req)
     html = res.read()
+    res.close()
 
     content = pq(html).find("div.search-item")
 
