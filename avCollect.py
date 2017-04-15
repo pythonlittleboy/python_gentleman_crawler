@@ -7,9 +7,9 @@ from engine import cilibar as cilibar
 # search engine: cilipig clpig cilibar
 engine = cilibar
 # av idol home page
-homePage = "http://www.nh87.cn/xingtianyouzhen/"
+homePage = "http://www.nh87.cn/sanshangyouya/"
 # max magnet number
-maxNumber = 100
+maxNumber = 1
 
 start_time = time.time()
 numbers = AvNumberReader.getAvNumber(homePage)
