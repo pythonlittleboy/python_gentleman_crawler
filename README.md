@@ -1,5 +1,4 @@
-# python_gentleman_crawler
-python绅士爬虫
+# python绅士爬虫
 
 从一些不可描述网站爬磁力链出来，方便批量下载。
 
