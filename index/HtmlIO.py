@@ -1,6 +1,7 @@
 import os
 import urllib.request
 import codecs
+import util.httpfetch
 
 def readHtml(name, url, cache):
     filePath = "D://MyDrivers//cache//html//" + name + ".html"
@@ -12,6 +13,7 @@ def readHtml(name, url, cache):
         file.close()
         return html
 
+    """
     #headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
     #                         'Chrome/51.0.2704.63 Safari/537.36'}
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) '
@@ -20,10 +22,14 @@ def readHtml(name, url, cache):
     res = urllib.request.urlopen(req)
     html = res.read()
     req.close()
+    """
 
+    html = util.httpfetch.get(url)
     #fo = open(filePath, "wb", "utf-8")
-    fo = codecs.open(filePath,'w','utf-8')
+    fo = open(filePath,'wb')
     fo.write(html)
     fo.close()
 
     return
+
+#readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", False)
