@@ -1,6 +1,4 @@
 # encoding:UTF-8
-import urllib.request
-from bs4 import BeautifulSoup
 from pyquery import PyQuery as pq
 import index.HtmlIO as htmlIO
 
@@ -44,5 +42,5 @@ def getTexts(elements):
         texts.append(pq(el).text())
     return texts
 
-html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", True)
-print(getAvNumberPic(html));
+#html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", True)
+#print(getAvNumberPic(html));

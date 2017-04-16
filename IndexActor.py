@@ -1,10 +1,11 @@
 from index.AvNumberPicReader import getAvNumberPic
 from index.HtmlIO import readHtml
 from index.ImageIO import saveImage
-from index.MovieDAO import saveMovie
+import index.MovieDAO as movieDAO
+import index.DiskIndex as diskIndex
+import time
 
-
-def indexActor(url, actor, cache):
+def indexActor(url, actor, cache, files):
     avList = [];
 
     html = readHtml(actor, url, cache)
@@ -16,17 +17,24 @@ def indexActor(url, actor, cache):
         #print(av)
         avList.append(av)
 
+    diskIndex.findLocalMovies(avList, files)
+
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     newList = [];
     for av in avList:
-        exists = saveMovie(av)
+        exists = movieDAO.saveMovie(av)
         saveImage(av)
-        if (exists == False):
-            print("save image: " + str(av))
-            newList.append(av);
-            #saveImage(av)
+
+        if exists:
+            movieDAO.updateMovieFile(av)
+
+        if not av.get("local_movie") and now > av.get("public_time"):
+            newList.append(av)
 
     return newList
 
 
 #print(indexActor("http://www.nh87.cn/guchuanyizhi/", "古川伊织", False))
-print(indexActor(url="http://www.nh87.cn/sanshangyouya/", actor="三上悠亚", cache=True))
+allFiles = diskIndex.getAllMovies("G://Game//File//")
+#print(indexActor(url="http://www.nh87.cn/sanshangyouya/", actor="三上悠亚", cache=True, files=allFiles))
+print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=True, files=allFiles))

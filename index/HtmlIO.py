@@ -1,35 +1,35 @@
 import os
 import urllib.request
 import codecs
-import util.httpfetch
+import util.httpfetch2
 
 def readHtml(name, url, cache):
     filePath = "D://MyDrivers//cache//html//" + name + ".html"
 
     if cache and os.path.exists(filePath):
         #file = open(filePath, "w", "utf-8")
-        file = codecs.open(filePath,'r+','utf-8')
+        file = open(filePath,'r+')
         html = file.read()
         file.close()
         return html
 
-    """
-    #headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
-    #                         'Chrome/51.0.2704.63 Safari/537.36'}
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) '
-                             'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2526.80 Safari/537.36'}
-    req = urllib.request.Request(url=url, headers=headers)
-    res = urllib.request.urlopen(req)
-    html = res.read()
-    req.close()
-    """
+    html = util.httpfetch2.getHtml(url)
+    print(html)
+    #html = str(html).decode('utf8')
+    #html = str(html, encoding="utf-8")
 
-    html = util.httpfetch.get(url)
-    #fo = open(filePath, "wb", "utf-8")
-    fo = open(filePath,'wb')
+    #fo = codecs.open(filePath, "w+", "utf-8")
+    fo = open(filePath,'w+')
     fo.write(html)
     fo.close()
 
     return
 
-#readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", False)
+#print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=False, files=allFiles))
+#readHtml("古川伊织", "http://www.nh87.cn/guchuanyizhi/", False)
+#filePath = "D://MyDrivers//cache//html//古川伊织.html"
+#file = codecs.open(filePath,'r+','utf-8')
+#file = open(filePath, 'r+')
+#html = file.read()
+#file.close()
+#print(html)

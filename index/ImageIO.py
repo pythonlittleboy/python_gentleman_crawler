@@ -33,5 +33,5 @@ def saveImage(av):
         print("begin save file: " + filePath)
         saveFile(url, filePath)
 
-av = {'av_number': 'SNIS-872', 'remote_cover': 'http://www.nh87.cn/uploads/1702/snis872pl-lp.jpg', 'actor': '三上悠亚'}
-saveImage(av)
+#av = {'av_number': 'SNIS-872', 'remote_cover': 'http://www.nh87.cn/uploads/1702/snis872pl-lp.jpg', 'actor': '三上悠亚'}
+#saveImage(av)

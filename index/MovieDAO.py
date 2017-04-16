@@ -1,8 +1,11 @@
 import sqlite3
 import time
 
+def getConnect():
+    return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
+
 def saveMovie(av):
-    conn = sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
+    conn = getConnect()
 
     avNumber = av["av_number"]
     remoteCover = av["remote_cover"]
@@ -24,3 +27,16 @@ def saveMovie(av):
     conn.close()
 
     return False
+
+
+def updateMovieFile(av):
+    conn = getConnect()
+    cursor = conn.cursor()
+
+    avNumber = av["av_number"]
+    local_movie = av.get("local_movie")
+    cursor.execute("update t_movies set local_movie=? where av_number=?",
+        [local_movie, avNumber])
+
+    conn.commit()
+    conn.close()
