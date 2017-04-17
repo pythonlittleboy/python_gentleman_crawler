@@ -12,7 +12,7 @@ def checkFile(filePath):
     return os.path.exists(filePath)
 
 def saveFileByRequest(url, filePath):
-    img = httpfetch.get(url)
+    img = httpfetch.getImage(url)
     file = open(filePath, "wb")
     file.write(img)
     file.close();

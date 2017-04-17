@@ -34,7 +34,6 @@ def indexActor(url, actor, cache, files):
     return newList
 
 
-#print(indexActor("http://www.nh87.cn/guchuanyizhi/", "古川伊织", False))
 allFiles = diskIndex.getAllMovies("G://Game//File//")
-#print(indexActor(url="http://www.nh87.cn/sanshangyouya/", actor="三上悠亚", cache=True, files=allFiles))
-print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=True, files=allFiles))
+#print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=True, files=allFiles))
+print(indexActor(url="http://www.nh87.cn/tianshimeng/", actor="天使萌", cache=True, files=allFiles))

@@ -16,7 +16,9 @@ def getAvNumberPic(html):
     images = pq(html).find("div.asdrt span.list_img a img")
     pics= [];
     for image in images:
-        pics.append("http://www.nh87.cn" + pq(image).attr("data-original"))
+        pic = "http://www.nh87.cn" + pq(image).attr("data-original")
+        pic = pic.replace("-lp", "")
+        pics.append(pic)
 
     i = 0
     results = []
@@ -42,5 +44,5 @@ def getTexts(elements):
         texts.append(pq(el).text())
     return texts
 
-#html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", True)
+#html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", False)
 #print(getAvNumberPic(html));

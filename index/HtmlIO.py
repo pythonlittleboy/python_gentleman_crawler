@@ -14,7 +14,7 @@ def readHtml(name, url, cache):
         return html
 
     html = util.httpfetch2.getHtml(url)
-    print(html)
+    #print(html)
     #html = str(html).decode('utf8')
     #html = str(html, encoding="utf-8")
 
@@ -23,7 +23,7 @@ def readHtml(name, url, cache):
     fo.write(html)
     fo.close()
 
-    return
+    return html
 
 #print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=False, files=allFiles))
 #readHtml("古川伊织", "http://www.nh87.cn/guchuanyizhi/", False)
