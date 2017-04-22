@@ -5,16 +5,17 @@ import index.MovieDAO as movieDAO
 import index.DiskIndex as diskIndex
 import time
 
+
 def indexActor(url, actor, cache, files):
     avList = [];
 
     html = readHtml(actor, url, cache)
     results = getAvNumberPic(html)
-    print("find av: " + str(len(results)))
+    print("find av 2: " + str(len(results)))
 
     for av in results:
         av["actor"] = actor
-        #print(av)
+        # print(av)
         avList.append(av)
 
     diskIndex.findLocalMovies(avList, files)
@@ -27,13 +28,63 @@ def indexActor(url, actor, cache, files):
 
         if exists:
             movieDAO.updateMovieFile(av)
+        else:
+            print("find movie: " + av["av_number"])
 
         if not av.get("local_movie") and now > av.get("public_time"):
             newList.append(av)
 
     return newList
 
+def saveActorToDB(url, actor, cache):
+    avList = [];
 
-allFiles = diskIndex.getAllMovies("G://Game//File//")
-#print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=True, files=allFiles))
-print(indexActor(url="http://www.nh87.cn/tianshimeng/", actor="天使萌", cache=True, files=allFiles))
+    html = readHtml(actor, url, cache)
+    results = getAvNumberPic(html)
+    print("saveActorToDB find " + actor + " movies: " + str(len(results)))
+
+    for av in results:
+        av["actor"] = actor
+        # print(av)
+        avList.append(av)
+
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    newList = [];
+    for av in avList:
+        exists = movieDAO.saveMovie(av)
+        saveImage(av)
+
+        if exists:
+            movieDAO.updateMovieFile(av)
+        else:
+            print("find new movie: " + av["av_number"])
+
+        if now > av.get("public_time"):
+            newList.append(av)
+
+    return newList
+
+def findUndownloadFiles(path):
+    allNumbers = movieDAO.getAllMovies()
+    allFiles = diskIndex.getAllMovies(path)
+    unloadedNumbers = []
+    for avNumber in allNumbers:
+        name = avNumber.lower()
+        first = name[0:name.find('-')]
+        second = name[name.find('-') + 1:]
+        found = False
+        for file in allFiles:
+            filename = file["filename"].lower()
+            if filename.find(first) > -1 and filename.find(second) > -1:
+                found = True
+                print("find " + name + " : " + file["fullpath"])
+                break;
+        else:
+            unloadedNumbers.append(name)
+
+    return unloadedNumbers
+
+# allFiles = diskIndex.getAllMovies("G://Game//File//")
+# print(indexActor(url="http://www.nh87.cn/guchuanyizhi/", actor="古川伊织", cache=True, files=allFiles))
+# print(indexActor(url="http://www.nh87.cn/tianshimeng/", actor="天使萌", cache=True, files=allFiles))
+# print(findUndownloadFiles("G://Game//File//"))

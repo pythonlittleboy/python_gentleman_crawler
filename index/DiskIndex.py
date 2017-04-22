@@ -1,4 +1,5 @@
 import os
+import index.MovieDAO as movieDAO
 from pprint import pprint
 
 def getAllMovies(path):
@@ -27,6 +28,7 @@ def findLocalMovies(avList, allFiles):
                 break;
 
     return avList
+
 
 
 #avList = [{"av_number": "ABS-072"}]

@@ -1,7 +1,7 @@
 
 import os
 import urllib.request
-import util.httpfetch as httpfetch
+import util.httpfetch2 as httpfetch2
 
 # D:\MyDrivers\cache\images\古川伊织
 
@@ -12,7 +12,7 @@ def checkFile(filePath):
     return os.path.exists(filePath)
 
 def saveFileByRequest(url, filePath):
-    img = httpfetch.getImage(url)
+    img = httpfetch2.getImage(url)
     file = open(filePath, "wb")
     file.write(img)
     file.close();

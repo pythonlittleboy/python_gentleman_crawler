@@ -11,7 +11,7 @@ def run():
 
     allFiles =  diskIndex.getAllMovies("G://Game//File//")
 
-    cache = True
+    cache = False
     allMovies = []
 
     for star in stars:
@@ -28,4 +28,35 @@ def run():
     for mag in mags:
         print(mag)
 
-run();
+def saveMovieToDB():
+    stars = [
+        #{"url": "http://www.nh87.cn/guchuanyizhi/", "actor": "古川伊织"},
+        #{"url": "http://www.nh87.cn/sanshangyouya/", "actor": "三上悠亚"},
+        #{"url": "http://www.nh87.cn/tianshimeng/", "actor": "天使萌"},
+        {"url": "http://www.nh87.cn/lingyuanaimili/", "actor": "铃原爱蜜莉"}
+    ]
+
+    cache = False
+    allMovies = []
+
+    for star in stars:
+        newMovies = indexActor.saveActorToDB(url=star["url"], actor=star["actor"], cache=cache)
+        allMovies = allMovies + newMovies
+
+    return allMovies
+
+def findMagnetsByDB():
+    movies = indexActor.findUndownloadFiles("G://Game//File//")
+    mags = []
+    for movie in movies:
+        mag = magnetIO.getMagnet(movie)
+        if mag:
+            mags.append(mag)
+
+    for mag in mags:
+        print(mag)
+
+
+#print(saveMovieToDB());
+#print(indexActor.findUndownloadFiles("G://Game//File//"))
+findMagnetsByDB()

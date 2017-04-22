@@ -1,5 +1,6 @@
 import sqlite3
 import time
+from pprint import pprint
 
 def getConnect():
     return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
@@ -40,3 +41,17 @@ def updateMovieFile(av):
 
     conn.commit()
     conn.close()
+
+def getAllMovies():
+    conn = getConnect()
+    cursor = conn.execute("SELECT * from t_movies")
+
+    results = []
+    for row in cursor:
+        results.append(row[0])
+
+    conn.close()
+
+    return results
+
+#pprint(getAllMovies())
