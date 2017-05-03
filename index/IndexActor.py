@@ -58,14 +58,17 @@ def saveActorToDB(url, actor, cache):
             movieDAO.updateMovieFile(av)
         else:
             print("find new movie: " + av["av_number"])
-
-        if now > av.get("public_time"):
             newList.append(av)
+
+        #if now > av.get("public_time"):
 
     return newList
 
-def findUndownloadFiles(path):
-    allNumbers = movieDAO.getAllMovies()
+def findUndownloadFiles(path, actors):
+    allNumbers = []
+    for actor in actors:
+        allNumbers = allNumbers + movieDAO.getAllMoviesByActor(actor)
+
     allFiles = diskIndex.getAllMovies(path)
     unloadedNumbers = []
     for avNumber in allNumbers:

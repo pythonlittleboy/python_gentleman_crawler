@@ -2,8 +2,10 @@ import sqlite3
 import time
 from pprint import pprint
 
+
 def getConnect():
     return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
+
 
 def saveMovie(av):
     conn = getConnect()
@@ -22,8 +24,9 @@ def saveMovie(av):
 
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-    cursor.execute("insert into t_movies (av_number, actor, title, remote_cover, create_time, public_time) values (?, ?, ?, ?, ?, ?)",
-                   [avNumber, actor, title, remoteCover, now, publicTime])
+    cursor.execute(
+        "insert into t_movies (av_number, actor, title, remote_cover, create_time, public_time) values (?, ?, ?, ?, ?, ?)",
+        [avNumber, actor, title, remoteCover, now, publicTime])
     conn.commit()
     conn.close()
 
@@ -37,10 +40,11 @@ def updateMovieFile(av):
     avNumber = av["av_number"]
     local_movie = av.get("local_movie")
     cursor.execute("update t_movies set local_movie=? where av_number=?",
-        [local_movie, avNumber])
+                   [local_movie, avNumber])
 
     conn.commit()
     conn.close()
+
 
 def getAllMovies():
     conn = getConnect()
@@ -54,4 +58,17 @@ def getAllMovies():
 
     return results
 
-#pprint(getAllMovies())
+
+def getAllMoviesByActor(actor):
+    conn = getConnect()
+    cursor = conn.execute("SELECT * from t_movies where actor=?", [actor])
+
+    results = []
+    for row in cursor:
+        results.append(row[0])
+
+    conn.close()
+
+    return results
+
+#pprint(getAllMoviesByActor("幸田由真"))

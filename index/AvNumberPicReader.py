@@ -4,20 +4,21 @@ import index.HtmlIO as htmlIO
 
 
 def getAvNumberPic(html):
-    content = pq(html).find("div.asdrt span.list_text a");
+    #print(html)
+    content = pq(html).find("div.asdrt .list_text a b");
     content = getTexts(content)
 
-    publictimes = pq(html).find("div.asdrt span.list_text div.good")
+    publictimes = pq(html).find("div.asdrt .list_text date")
     publictimes = getTexts(publictimes)
 
-    titles = pq(html).find("div.asdrt span.list_text strong")
+    titles = pq(html).find("div.asdrt .list_text p")
     titles = getTexts(titles)
 
-    images = pq(html).find("div.asdrt span.list_img a img")
+    images = pq(html).find("div.asdrt .list_img a img")
     pics= [];
     for image in images:
         pic = "http://www.nh87.cn" + pq(image).attr("data-original")
-        pic = pic.replace("-lp", "")
+        pic = pic.replace("small-", "")
         pics.append(pic)
 
     i = 0
@@ -33,6 +34,7 @@ def getAvNumberPic(html):
         if len(titles) > i:
             one["title"] = titles[i]
 
+        #print(one)
         results.append(one)
         i += 1
 

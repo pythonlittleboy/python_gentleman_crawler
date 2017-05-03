@@ -1,5 +1,7 @@
 import requests
 
+COOKIE = "tjfwkey=j1237n; Hm_lvt_f55674d4367f95a13931a2de921dd8ac=1485677791,1487860982; UM_distinctid=15b67a3852fc5-058bdcee22d39a-514f291e-1fa400-15b67a38530251; JXM701886=1; Hm_lvt_196c24ae350e0996212996390aed04b2=1492091697,1492224007,1492433852,1492869286; CNZZDATA1261666818=121300809-1492087598-%7C1493038621; yeuauecookieclassrecord=%2C591%2C; Hm_lvt_4fc8c6a8a6a361779e76a82b679b3960=1492436946,1492861726,1493041188,1493730309; Hm_lpvt_4fc8c6a8a6a361779e76a82b679b3960=1493730309"
+
 def getHtml(url):
     """
 Cache-Control:max-age=0
@@ -17,7 +19,7 @@ Upgrade-Insecure-Requests:1
         'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
-        'Cookie': 'Hm_lvt_f55674d4367f95a13931a2de921dd8ac=1485677791,1487860982; UM_distinctid=15b67a3852fc5-058bdcee22d39a-514f291e-1fa400-15b67a38530251; JXM701886=1; CNZZDATA1261666818=121300809-1492087598-%7C1492436133; Hm_lvt_196c24ae350e0996212996390aed04b2=1490788668,1492091697,1492224007,1492433852; JXD701886=1; Hm_lvt_4fc8c6a8a6a361779e76a82b679b3960=1492091936,1492238050,1492436946,1492861726; Hm_lpvt_4fc8c6a8a6a361779e76a82b679b3960=1492861739'
+        'Cookie': COOKIE
     }
     r = requests.get(url, headers=headers)
     r.encoding = 'utf-8'
@@ -33,7 +35,7 @@ def getImage(url):
         'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
-        'Cookie': 'Hm_lvt_f55674d4367f95a13931a2de921dd8ac=1485677791,1487860982; UM_distinctid=15b67a3852fc5-058bdcee22d39a-514f291e-1fa400-15b67a38530251; JXM701886=1; CNZZDATA1261666818=121300809-1492087598-%7C1492436133; Hm_lvt_196c24ae350e0996212996390aed04b2=1490788668,1492091697,1492224007,1492433852; JXD701886=1; Hm_lvt_4fc8c6a8a6a361779e76a82b679b3960=1492091936,1492238050,1492436946,1492861726; Hm_lpvt_4fc8c6a8a6a361779e76a82b679b3960=1492861739'
+        'Cookie': COOKIE
     }
     r = requests.get(url, headers=headers)
     return r.content
