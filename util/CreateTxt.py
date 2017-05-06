@@ -1,7 +1,7 @@
 import os
 
 folder = "G:\Game\File\download"
-movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv"])
+movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv", "iso"])
 
 for fpath, dirs, fs in os.walk(folder):
     for filename in fs:

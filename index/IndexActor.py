@@ -1,6 +1,6 @@
+from index import SysConst
 from index.AvNumberPicReader import getAvNumberPic
 from index.HtmlIO import readHtml
-from index.ImageIO import saveImage
 import index.MovieDAO as movieDAO
 import index.DiskIndex as diskIndex
 import time
@@ -22,17 +22,21 @@ def indexActor(url, actor, cache, files):
 
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     newList = [];
-    for av in avList:
-        exists = movieDAO.saveMovie(av)
-        saveImage(av)
 
-        if exists:
-            movieDAO.updateMovieFile(av)
-        else:
-            print("find movie: " + av["av_number"])
+    conn = SysConst.getConnect()
+
+    for av in avList:
+        exists = movieDAO.saveMovie(av, conn)
+        #saveImage(av)
+        #movieDAO.updateMovieFile(av)
+        #if not exists:
+            #print("find movie: " + av["av_number"])
 
         if not av.get("local_movie") and now > av.get("public_time"):
             newList.append(av)
+
+    conn.commit();
+    conn.close();
 
     return newList
 
@@ -50,22 +54,27 @@ def saveActorToDB(url, actor, cache):
 
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     newList = [];
-    for av in avList:
-        exists = movieDAO.saveMovie(av)
-        saveImage(av)
 
-        if exists:
-            movieDAO.updateMovieFile(av)
-        else:
-            print("find new movie: " + av["av_number"])
+    conn = SysConst.getConnect()
+
+    for av in avList:
+        exists = movieDAO.saveMovie(av, conn)
+        #saveImage(av)
+        #movieDAO.updateMovieFile(av)
+        if not exists:
+            #print("find new movie: " + av["av_number"])
             newList.append(av)
 
         #if now > av.get("public_time"):
+
+    conn.commit();
+    conn.close();
 
     return newList
 
 def findUndownloadFiles(path, actors):
     allNumbers = []
+
     for actor in actors:
         allNumbers = allNumbers + movieDAO.getAllMoviesByActor(actor)
 

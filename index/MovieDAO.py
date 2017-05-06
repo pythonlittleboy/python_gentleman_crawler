@@ -1,14 +1,14 @@
 import sqlite3
 import time
 from pprint import pprint
-
+from index import SysConst
 
 def getConnect():
     return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
 
 
-def saveMovie(av):
-    conn = getConnect()
+def saveMovie(av, conn):
+    #conn = SysConst.getConnect()
 
     avNumber = av["av_number"]
     remoteCover = av["remote_cover"]
@@ -27,8 +27,8 @@ def saveMovie(av):
     cursor.execute(
         "insert into t_movies (av_number, actor, title, remote_cover, create_time, public_time) values (?, ?, ?, ?, ?, ?)",
         [avNumber, actor, title, remoteCover, now, publicTime])
-    conn.commit()
-    conn.close()
+    #conn.commit()
+    #conn.close()
 
     return False
 

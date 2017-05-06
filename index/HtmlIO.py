@@ -7,8 +7,8 @@ def readHtml(name, url, cache):
     filePath = "D://MyDrivers//cache//html//" + name + ".html"
 
     if cache and os.path.exists(filePath):
-        #file = open(filePath, "w", "utf-8")
-        file = open(filePath,'r+')
+        file = codecs.open(filePath, "r+", "utf-8")
+        #file = open(filePath,'r+')
         html = file.read()
         file.close()
         return html
@@ -18,8 +18,8 @@ def readHtml(name, url, cache):
     #html = str(html).decode('utf8')
     #html = str(html, encoding="utf-8")
 
-    #fo = codecs.open(filePath, "w+", "utf-8")
-    fo = open(filePath,'w+')
+    fo = codecs.open(filePath, "w+", "utf-8")
+    #fo = open(filePath,'w+')
     fo.write(html)
     fo.close()
 

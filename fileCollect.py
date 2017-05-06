@@ -2,7 +2,7 @@ from engine import cilipig as cilipig
 from engine import cilibar as cilibar
 from engine import clpig as clpig
 
-engine = cilipig
+engine = clpig
 
 # 打开文件
 fo = open("numbers.txt", "r")
@@ -12,8 +12,8 @@ result = []
 try:
     for line in fo:
         num = line.strip()
-        # print(num)
         mag = engine.readMagnet(num)
+        print(mag)
         if len(mag) > 10:
             result.append(mag)
 finally:
