@@ -27,7 +27,7 @@ class BayesText:
                            if os.path.isdir(trainingdir + filename)]
         print("Counting ...")
         for category in self.categories:
-            # print('    ' + category)
+            print('    category: ' + category)
             (self.prob[category],
              self.totals[category]) = self.train(trainingdir, category,
                                                  ignoreBucket)

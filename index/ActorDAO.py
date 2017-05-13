@@ -37,11 +37,13 @@ def saveActor(actor, conn):
 def getAllActors():
     conn = SysConst.getConnect()
     yesterday = round(time.time() - 24 * 60 * 60)
-    lastmonth = round(time.time() - 24 * 60 * 60 * 28)
+    lastmonth = round(time.time() - 24 * 60 * 60 * 5)
     # print(yesterday)
     cursor = conn.execute("SELECT * from t_actors where "
                           " (favor = 1 and last_read_time < ?) "
-                          " or (favor = 0 and last_read_time < ?)", [yesterday, lastmonth])
+                          " or (favor = 0 and last_read_time < ?)"
+                          " or last_read_time is null"
+                          " order by last_read_time desc", [yesterday, lastmonth])
 
     results = []
     for row in cursor:

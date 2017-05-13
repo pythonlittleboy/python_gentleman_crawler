@@ -11,3 +11,7 @@ def getVRPath():
 
 def getClassicPath():
     return "G://Game//File//1Class//"
+
+
+def getVRTrainDataPath():
+    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//data//vr//"

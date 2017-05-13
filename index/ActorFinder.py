@@ -3,7 +3,7 @@ from pyquery import PyQuery as pq
 import index.HtmlIO as htmlIO
 
 
-cache = True
+cache = False
 
 def findActors():
     html = HtmlIO.readHtml("find", "http://www.nh87.cn/find.html", cache)

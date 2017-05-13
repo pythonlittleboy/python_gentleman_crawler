@@ -69,7 +69,7 @@ def tagTrash():
                 print("find " + name + " : " + file["fullpath"])
                 movieFiles.remove(file)
 
-                av = {"av_number": avNumber.upper(), "local":0, "classic": 1, "vr": 0, "trash":1}
+                av = {"av_number": avNumber.upper(), "local":0, "classic": 0, "vr": 0, "trash":1}
                 MovieDAO.updateMovieFile(conn, av)
 
                 break;
@@ -77,5 +77,7 @@ def tagTrash():
     conn.commit()
     conn.close()
 
-tagClassic()
+
 tagTrash()
+#tagClassic()
+#tagVR()

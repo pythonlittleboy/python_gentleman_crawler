@@ -4,7 +4,7 @@ from pprint import pprint
 from index import SysConst
 
 def getConnect():
-    return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
+    return SysConst.getConnect()
 
 
 def saveMovie(av, conn):
@@ -41,8 +41,9 @@ def updateMovieFile(conn, av):
     classic = av.get("classic")
     vr = av.get("vr")
     trash = av.get("trash")
-    cursor.execute("update t_movies set local=?,classic=?,vr=?,trash=? where av_number=?",
-                   [local, classic, vr, trash, avNumber])
+    vr_forcast = av.get("vr_forcast")
+    cursor.execute("update t_movies set local=?,classic=?,vr=?,trash=?,vr_forcast=? where av_number=?",
+                   [local, classic, vr, trash, vr_forcast, avNumber])
 
 
 def getAllMovies():
@@ -70,4 +71,15 @@ def getAllMoviesByActor(actor):
 
     return results
 
-#pprint(getAllMoviesByActor("幸田由真"))
+
+def getMoviesByCondition(condition):
+    conn = getConnect()
+    cursor = conn.execute("SELECT av_number,title from t_movies where " + condition, [])
+
+    results = []
+    for row in cursor:
+        results.append({"av_number": row[0], "title": row[1]})
+
+    conn.close()
+
+    return results
