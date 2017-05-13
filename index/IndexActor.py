@@ -62,7 +62,7 @@ def saveActorToDB(url, actor, cache):
         #saveImage(av)
         #movieDAO.updateMovieFile(av)
         if not exists:
-            #print("find new movie: " + av["av_number"])
+            print("find new movie: " + str(av))
             newList.append(av)
 
         #if now > av.get("public_time"):

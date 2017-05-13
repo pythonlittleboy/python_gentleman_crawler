@@ -33,22 +33,21 @@ def saveMovie(av, conn):
     return False
 
 
-def updateMovieFile(av):
-    conn = getConnect()
+def updateMovieFile(conn, av):
     cursor = conn.cursor()
 
     avNumber = av["av_number"]
-    local_movie = av.get("local_movie")
-    cursor.execute("update t_movies set local_movie=? where av_number=?",
-                   [local_movie, avNumber])
-
-    conn.commit()
-    conn.close()
+    local = av.get("local")
+    classic = av.get("classic")
+    vr = av.get("vr")
+    trash = av.get("trash")
+    cursor.execute("update t_movies set local=?,classic=?,vr=?,trash=? where av_number=?",
+                   [local, classic, vr, trash, avNumber])
 
 
 def getAllMovies():
     conn = getConnect()
-    cursor = conn.execute("SELECT * from t_movies")
+    cursor = conn.execute("SELECT av_number from t_movies")
 
     results = []
     for row in cursor:

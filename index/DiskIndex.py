@@ -16,6 +16,34 @@ def getAllMovies(path):
 
     return results
 
+def getMovies(path):
+    movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv"])
+    results = []
+    for fpath, dirs, fs in os.walk(path):
+        for filename in fs:
+            fullpath = os.path.join(fpath, filename)
+            suffix = filename[-3:]
+            if filename[0:1] != "." and len(filename) > 4 and suffix in movieTypes:
+                #print(fullpath + " | " + filename)
+                result = {"fullpath": fullpath, "filename": filename}
+                results.append(result)
+
+    return results
+
+def getTxts(path):
+    movieTypes = set(["txt"])
+    results = []
+    for fpath, dirs, fs in os.walk(path):
+        for filename in fs:
+            fullpath = os.path.join(fpath, filename)
+            suffix = filename[-3:]
+            if filename[0:1] != "." and len(filename) > 4 and suffix in movieTypes:
+                #print(fullpath + " | " + filename)
+                result = {"fullpath": fullpath, "filename": filename}
+                results.append(result)
+
+    return results
+
 def findLocalMovies(avList, allFiles):
     # allFiles = getAllMovies(path)
 
