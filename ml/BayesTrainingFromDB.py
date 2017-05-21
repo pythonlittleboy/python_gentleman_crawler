@@ -2,12 +2,34 @@ import os, codecs, math
 from index import MovieDAO
 from index import SysConst
 
+def isEnglish(char):
+    return (char >= 'a' and char <= 'z') or (char >= "A" and char <= "Z")
+
+def getChars(content):
+    token = content.strip('\'".,?:-')
+    stopwords = "、 -=1234567890"
+
+    appendChar = ""
+    results = []
+
+    for char in token:
+       if not char in stopwords:
+           if isEnglish(char):
+               appendChar = appendChar + char
+           else:
+               if appendChar != "":
+                    results.append(appendChar)
+                    appendChar = ""
+               results.append(char)
+
+    return results
+
 class BayesTrainingFromDB:
     def __init__(self, tag):
         self.vocabulary = {}
         self.prob = {}
         self.totals = {}
-        self.stopwords = {"、"}
+        #self.stopwords = "、 -=1234567890"
         self.categories = {"pos", "neg"}
         self.tag = tag
 
@@ -54,6 +76,7 @@ class BayesTrainingFromDB:
                 self.prob[category][word] = (float(count + 1)
                                              / denominator)
                 # print ("DONE TRAINING\n\n")
+        # print(self.prob)
 
     def train(self, category):
         """counts word occurrences for a particular category"""
@@ -69,9 +92,20 @@ class BayesTrainingFromDB:
         rows = 0
         # print("   " + currentBucket)
         for movie in movies:
-            token = movie["title"]
-            token = token.strip('\'".,?:-')
+            token = movie["av_number"] + movie["actor"] + movie["title"]
+            #token = token.strip('\'".,?:-')
             rows += 1
+
+            chars = getChars(token)
+            for char in chars:
+                self.vocabulary.setdefault(char, 0)
+                self.vocabulary[char] += 1
+                counts.setdefault(char, 0)
+                counts[char] += 1
+                total += 1
+
+            """
+            old:
             for char in token:
                 if char != ' ' and not char in self.stopwords:
                     self.vocabulary.setdefault(char, 0)
@@ -79,7 +113,7 @@ class BayesTrainingFromDB:
                     counts.setdefault(char, 0)
                     counts[char] += 1
                     total += 1
-
+            """
         return (counts, total, rows)
 
     def classify(self, content):
@@ -87,8 +121,11 @@ class BayesTrainingFromDB:
         for category in self.categories:
             results[category] = 0
 
-        token = content.strip('\'".,?:-').lower()
-        for char in token:
+        chars = getChars(content)
+        # token = content.strip('\'".,?:-').lower()
+        # for char in token:
+
+        for char in chars:
             if char in self.vocabulary:
                 for category in self.categories:
                     if self.prob[category][char] == 0:
@@ -112,7 +149,18 @@ class BayesTrainingFromDB:
         results = {}
         for category in self.categories:
             results[category] = 0
+        #token = content.strip('\'".,?:-').lower()
+        chars = getChars(content)
+        for char in chars:
+            if char in self.vocabulary:
+                for category in self.categories:
+                    if self.prob[category][char] == 0:
+                        print("%s %s" % (category, char))
+                    results[category] += math.log(
+                        self.prob[category][char])
 
+        """
+        old
         token = content.strip('\'".,?:-').lower()
         for char in token:
             if char in self.vocabulary:
@@ -121,7 +169,7 @@ class BayesTrainingFromDB:
                         print("%s %s" % (category, char))
                     results[category] += math.log(
                         self.prob[category][char])
-
+        """
         return results["pos"] - results["neg"]
 
     '''

@@ -2,6 +2,7 @@ import os
 import urllib.request
 import codecs
 import util.httpfetch2
+import time
 
 def readHtml(name, url, cache):
     filePath = "D://MyDrivers//cache//html//" + name + ".html"
@@ -13,6 +14,7 @@ def readHtml(name, url, cache):
         file.close()
         return html
 
+    time.sleep(2)
     html = util.httpfetch2.getHtml(url)
     #print(html)
     #html = str(html).decode('utf8')

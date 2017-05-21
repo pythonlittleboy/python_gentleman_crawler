@@ -21,7 +21,7 @@ Upgrade-Insecure-Requests:1
         'Accept-Language': 'zh-CN,zh;q=0.8',
         'Cookie': COOKIE
     }
-    r = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers, timeout = 500)
     r.encoding = 'utf-8'
     return r.text
 

@@ -43,7 +43,7 @@ def getAllActors():
                           " (favor = 1 and last_read_time < ?) "
                           " or (favor = 0 and last_read_time < ?)"
                           " or last_read_time is null"
-                          " order by last_read_time desc", [yesterday, lastmonth])
+                          " order by favor desc, last_read_time desc", [yesterday, lastmonth])
 
     results = []
     for row in cursor:

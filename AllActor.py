@@ -2,13 +2,14 @@ import index.ActorDAO as ActorDAO
 import index.IndexActor as indexActor
 from index import ActorFinder
 
-def saveMovieToDB():
-    newActors  = ActorFinder.findActors()
-    if len(newActors) > 0:
-        print("find new actors:")
-        print(newActors)
-    else:
-        print("no found new actor.")
+def saveMovieToDB(skipActors):
+    if not skipActors:
+        newActors  = ActorFinder.findActors()
+        if len(newActors) > 0:
+            print("find new actors:")
+            print(newActors)
+        else:
+            print("no found new actor.")
 
     actors = ActorDAO.getAllActors()
 
@@ -28,4 +29,4 @@ def saveMovieToDB():
 
     return allMovies
 
-saveMovieToDB()
+saveMovieToDB(True)
