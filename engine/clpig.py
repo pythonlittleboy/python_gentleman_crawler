@@ -41,16 +41,33 @@ def readMagnet(avNumber):
         return ""
 
     resultList = []
+
+    specialTitles = ["Thz.la"]
+    foundSpecial = False
+    specialHref = ""
     # print(content)
     for el in content:
         el = pq(el);
         # print(el)
         href = el.find("a").attr("href")
-        size = el.find("div.col-lg-1").text()
-        size = convertToNumber(size)
+        title = el.find("a").attr("title")
 
-        resultList.append((href, size))
+        for specialTitle in specialTitles:
+            if specialTitle in title:
+                foundSpecial = True
+                specialHref = href
 
-    resultList.sort(key=lambda item: item[1], reverse=True)
-    # print(resultList[0][0])
-    return getMagnet(resultList[0][0])
+        if not foundSpecial:
+            size = el.find("div.col-lg-1").text()
+            size = convertToNumber(size)
+
+            resultList.append((href, size))
+
+    if foundSpecial:
+        return getMagnet(specialHref)
+    else:
+        resultList.sort(key=lambda item: item[1], reverse=True)
+        # print(resultList[0][0])
+        return getMagnet(resultList[0][0])
+
+#print(readMagnet("ipz806"))

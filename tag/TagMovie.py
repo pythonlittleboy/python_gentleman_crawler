@@ -79,5 +79,5 @@ def tagTrash():
 
 
 tagTrash()
-#tagClassic()
-#tagVR()
+tagClassic()
+tagVR()

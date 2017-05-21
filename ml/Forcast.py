@@ -2,7 +2,7 @@ from index import MovieDAO
 from index import SysConst
 from ml import BayesTrainingFromDB as bayes
 
-def forcast():
+def forcastToDB():
     localBayes = bayes.BayesTrainingFromDB("local")
     vrBayes = bayes.BayesTrainingFromDB("vr")
 
@@ -23,5 +23,26 @@ def forcast():
     conn.commit()
     conn.close()
 
+def forcastToNumbers():
+    localBayes = bayes.BayesTrainingFromDB("local")
+    vrBayes = bayes.BayesTrainingFromDB("vr")
 
-forcast()
+    movies = MovieDAO.getMoviesByCondition("local is null")
+
+    for movie in movies:
+        local = localBayes.probable(movie["title"])
+        vr = vrBayes.probable(movie["title"])
+
+        movie["vr_forcast"] = local + vr
+
+
+    movies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
+
+    numbers = []
+    for i in range (0, 50):
+        print(movies[i])
+        numbers.append(movies[i]["av_number"])
+
+    return numbers;
+
+print(forcastToNumbers())

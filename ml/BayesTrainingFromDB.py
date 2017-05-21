@@ -26,7 +26,7 @@ class BayesTrainingFromDB:
         for category in self.categories:
             self.totalProb[category] = self.rows[category] / totalRows
 
-        print(self.totalProb)
+        #print(self.totalProb)
 
         # I am going to eliminate any word in the vocabulary
         # that doesn't occur at least 3 times
@@ -107,6 +107,34 @@ class BayesTrainingFromDB:
         #print(results)
         #print(minCategory)
         return maxCategory
+
+    def probable(self, content):
+        results = {}
+        for category in self.categories:
+            results[category] = 0
+
+        token = content.strip('\'".,?:-').lower()
+        for char in token:
+            if char in self.vocabulary:
+                for category in self.categories:
+                    if self.prob[category][char] == 0:
+                        print("%s %s" % (category, char))
+                    results[category] += math.log(
+                        self.prob[category][char])
+
+        return results["pos"] - results["neg"]
+
+    '''
+    def probable(self, content):
+        result = 0
+
+        token = content.strip('\'".,?:-').lower()
+        for char in token:
+            if char in self.vocabulary:
+                result += math.log(self.prob["pos"][char])
+
+        return result
+    '''
 
     def testClassify(self, dir):
         allResult = {}
