@@ -54,6 +54,21 @@ def getAllActors():
 
     return results
 
+def getAllActorsFully():
+    conn = SysConst.getConnect()
+    # print(yesterday)
+    cursor = conn.execute("SELECT * from t_actors "
+                          " order by favor desc, last_read_time desc", [])
+
+    results = []
+    for row in cursor:
+        one = {"name": row[0], "url": row[1]}
+        results.append(one)
+
+    conn.close()
+
+    return results
+
 
 def updateLastReadTime(name):
     conn = SysConst.getConnect()

@@ -23,4 +23,4 @@ def findMagnetsByRecommender(findMag):
                 print(mag)
 
 
-findMagnetsByRecommender(False)
+findMagnetsByRecommender(True)

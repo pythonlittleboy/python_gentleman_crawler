@@ -19,6 +19,7 @@ def getAvNumberPic(html):
     for image in images:
         pic = "http://www.nh87.cn" + pq(image).attr("data-original")
         pic = pic.replace("small-", "")
+        pic = pic.replace("-small", "")
         pics.append(pic)
 
     i = 0

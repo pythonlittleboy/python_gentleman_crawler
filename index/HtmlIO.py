@@ -14,7 +14,7 @@ def readHtml(name, url, cache):
         file.close()
         return html
 
-    time.sleep(2)
+    #time.sleep(1)
     html = util.httpfetch2.getHtml(url)
     #print(html)
     #html = str(html).decode('utf8')

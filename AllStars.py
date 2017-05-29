@@ -23,6 +23,7 @@ def findMagnetsByDB(actors):
             actors.append(record["name"])
     print(actors)
 
+    # TODO 改为读数据库
     movies = indexActor.findUndownloadFiles("G://Game//File//", actors)
     mags = []
     try:
@@ -41,4 +42,4 @@ def findMagnetsByDB(actors):
 #print(saveMovieToDB());
 # print(indexActor.findUndownloadFiles("G://Game//File//", ["幸田由真"]))
 # "古川伊织", "三上悠亚", "高桥圣子", "天使萌", "彩乃奈奈", "一之濑遥", "铃村爱里", "坂口美穗乃","小岛南"
-findMagnetsByDB(["真木由香里"])
+findMagnetsByDB(["河南实里", "菊川三叶"])

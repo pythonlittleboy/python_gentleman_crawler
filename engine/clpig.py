@@ -22,7 +22,8 @@ def getMagnet(url):
 
 def readMagnet(avNumber):
 
-    url = "http://www.clpig.org/torrent/"+avNumber+".html"
+    #url = "http://www.clpig.org/torrent/"+avNumber+".html"
+    url = "http://www.cilizhuzhu.com/torrent/" + avNumber + ".html"
     print("begin to read: " + url);
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '

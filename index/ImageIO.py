@@ -8,6 +8,13 @@ import util.httpfetch2 as httpfetch2
 def getFilePath(actor, avNumber):
     return "d://MyDrivers//cache//images//" + actor + "//" + avNumber + ".jpg"
 
+
+def checkDirPath(actor):
+    path = "d://MyDrivers//cache//images//" + actor;
+    exist = os.path.exists(path)
+    if not exist:
+        os.mkdir(path)
+
 def checkFile(filePath):
     return os.path.exists(filePath)
 
@@ -32,6 +39,10 @@ def saveImage(av):
     if not(checkFile(filePath)):
         print("begin save file: " + filePath)
         saveFile(url, filePath)
+        return True
+    else:
+        return False
 
 #av = {'av_number': 'SNIS-872', 'remote_cover': 'http://www.nh87.cn/uploads/1702/snis872pl-lp.jpg', 'actor': '三上悠亚'}
 #saveImage(av)
+#checkDirPath("ABC")

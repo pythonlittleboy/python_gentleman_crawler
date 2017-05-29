@@ -74,11 +74,11 @@ def getAllMoviesByActor(actor):
 
 def getMoviesByCondition(condition):
     conn = getConnect()
-    cursor = conn.execute("SELECT av_number, actor, title from t_movies where " + condition, [])
+    cursor = conn.execute("SELECT av_number, actor, title, remote_cover from t_movies where " + condition, [])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3]})
 
     conn.close()
 
