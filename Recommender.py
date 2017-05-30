@@ -1,13 +1,13 @@
-import index.IndexActor as indexActor
-import index.DiskIndex as diskIndex
 import index.MagnetIO as magnetIO
-import index.ActorDAO as ActorDAO
+from ml import PredictByImage
 from ml import Forcast
+from index import DiskIndex
 
-def findMagnetsByRecommender(findMag):
+def recommenderByTitle():
     movies = Forcast.forcastToNumbers()
     print(movies)
-
+    DiskIndex.copyImageToTemp(movies)
+    """
     if findMag:
         mags = []
         try:
@@ -21,6 +21,14 @@ def findMagnetsByRecommender(findMag):
         finally:
             for mag in mags:
                 print(mag)
+    """
+
+def recommenderByImage():
+    movies = PredictByImage.predict()
+    print(movies)
+    DiskIndex.copyImageToTemp(movies)
 
 
-findMagnetsByRecommender(True)
+#recommenderByTitle()
+recommenderByImage()
+#magnetIO.getMagnetFromTemp()
