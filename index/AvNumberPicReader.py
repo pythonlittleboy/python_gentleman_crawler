@@ -17,7 +17,12 @@ def getAvNumberPic(html):
     images = pq(html).find("div.asdrt .list_img a img")
     pics= [];
     for image in images:
-        pic = "http://www.nh87.cn" + pq(image).attr("data-original")
+        #pic = "http://www.nh87.cn" + pq(image).attr("data-original")
+        pic = pq(image).attr("data-original")
+
+        if not pic.startswith("http://imgs.nh87.cn"):
+            pic = "http://imgs.nh87.cn" + pic
+
         pic = pic.replace("small-", "")
         pic = pic.replace("-small", "")
         pics.append(pic)

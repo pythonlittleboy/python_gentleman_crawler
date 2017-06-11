@@ -21,21 +21,28 @@ Upgrade-Insecure-Requests:1
         'Accept-Language': 'zh-CN,zh;q=0.8',
         'Cookie': COOKIE
     }
-    r = requests.get(url, headers=headers, timeout = 500)
-    r.encoding = 'utf-8'
-    return r.text
+
+    while True:
+        try:
+            r = requests.get(url, headers=headers, timeout=5)
+            r.encoding = 'utf-8'
+            return r.text
+        except Exception as err:
+            print(err)
+
+
 
 
 def getImage(url):
     headers = {
-        'Host': 'www.nh87.cn',
+        'Host': 'imgs.nh87.cn',
         'Cache-Control': 'max-age=0',
         'Accept': 'image/webp,image/*,*/*;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
         'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
-        'Cookie': COOKIE
+        #'Cookie': COOKIE
     }
     r = requests.get(url, headers=headers)
     return r.content

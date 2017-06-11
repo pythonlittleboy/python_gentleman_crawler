@@ -77,7 +77,7 @@ def tagTrash():
     conn.commit()
     conn.close()
 
-
-tagTrash()
-tagClassic()
-tagVR()
+def tagAll():
+    tagTrash()
+    tagClassic()
+    tagVR()

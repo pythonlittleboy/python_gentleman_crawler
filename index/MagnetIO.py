@@ -16,10 +16,18 @@ def getMagnet(avNumber):
 def getMagnetFromTemp():
     images = DiskIndex.getAllImages(SysConst.getImageTempPath())
     mags = []
-    for image in images:
-        mags.append(getMagnet(image["filename"][0:-4]))
+    try:
+        for image in images:
+            mag = getMagnet(image["filename"][0:-4])
+            if mag:
+                print(mag)
+                mags.append(mag)
+    except Exception as err:
+            print(err)
+    finally:
+        for mag in mags:
+            print(mag)
 
     return mags
-
 
 #getMagnetFromTemp()

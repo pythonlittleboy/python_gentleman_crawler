@@ -30,7 +30,8 @@ def forcastToNumbers():
     movies = MovieDAO.getMoviesByCondition("local is null")
 
     for movie in movies:
-        token = movie["av_number"] + movie["actor"] + movie["title"]
+        #token = movie["av_number"] + movie["actor"] + movie["title"]
+        token = movie["av_number"] + movie["title"]
         local = localBayes.probable(token)
         vr = vrBayes.probable(token)
 
@@ -39,7 +40,7 @@ def forcastToNumbers():
     movies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
 
     numbers = []
-    for i in range (0, 50):
+    for i in range (0, 80):
         print(movies[i])
         numbers.append(movies[i]["av_number"])
 

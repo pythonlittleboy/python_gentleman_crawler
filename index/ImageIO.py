@@ -34,15 +34,17 @@ def saveImage(av):
     actor = av["actor"]
     avNumber = av["av_number"]
     url = av["remote_cover"]
+    url = url.replace("www.nh87.cn", "imgs.nh87.cn")
     filePath = getFilePath(actor, avNumber)
 
     if not(checkFile(filePath)):
         print("begin save file: " + filePath)
+        print(url)
         saveFile(url, filePath)
         return True
     else:
         return False
 
-#av = {'av_number': 'SNIS-872', 'remote_cover': 'http://www.nh87.cn/uploads/1702/snis872pl-lp.jpg', 'actor': '三上悠亚'}
+#av = {'av_number': 'IPZ-976', 'remote_cover': 'http://www.nh87.cn/uploads/2017/06/ipz976pl.jpg', 'actor': '樱空桃'}
 #saveImage(av)
 #checkDirPath("ABC")

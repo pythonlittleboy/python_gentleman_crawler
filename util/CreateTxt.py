@@ -1,6 +1,6 @@
 import os
 
-#folder = "G:\Game\File\download"
+#folder = "G:\\Game\\File\\1Class\\G古川"
 folder = "D:\Downloads"
 movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv", "iso"])
 

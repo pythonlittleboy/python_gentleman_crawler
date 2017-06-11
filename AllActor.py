@@ -15,7 +15,7 @@ def saveMovieToDB(skipActors):
 
     allMovies = []
 
-    count = 200
+    count = 600
 
     for actor in actors:
         count = count - 1

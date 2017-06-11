@@ -1,7 +1,9 @@
 import index.MagnetIO as magnetIO
 from ml import PredictByImage
 from ml import Forcast
+from ml import CalcSimilar
 from index import DiskIndex
+from tag import TagMovie
 
 def recommenderByTitle():
     movies = Forcast.forcastToNumbers()
@@ -29,6 +31,9 @@ def recommenderByImage():
     DiskIndex.copyImageToTemp(movies)
 
 
+#TagMovie.tagAll();
 #recommenderByTitle()
-recommenderByImage()
-#magnetIO.getMagnetFromTemp()
+#CalcSimilar.calcAllVR()
+
+#recommenderByImage()
+magnetIO.getMagnetFromTemp()
