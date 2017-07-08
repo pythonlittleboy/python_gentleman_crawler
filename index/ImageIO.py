@@ -2,15 +2,16 @@
 import os
 import urllib.request
 import util.httpfetch2 as httpfetch2
+from index import SysConst
 
-# D:\MyDrivers\cache\images\古川伊织
+# SysConst.getImageCachePath()/古川伊织
 
 def getFilePath(actor, avNumber):
-    return "d://MyDrivers//cache//images//" + actor + "//" + avNumber + ".jpg"
+    return SysConst.getImageCachePath() + actor + "//" + avNumber + ".jpg"
 
 
 def checkDirPath(actor):
-    path = "d://MyDrivers//cache//images//" + actor;
+    path = SysConst.getImageCachePath() + actor;
     exist = os.path.exists(path)
     if not exist:
         os.mkdir(path)

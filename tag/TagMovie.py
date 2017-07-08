@@ -53,7 +53,7 @@ def tagClassic():
     conn.close()
 
 def tagTrash():
-    vrPath = SysConst.getClassicPath()
+    vrPath = SysConst.getTextPath()
     movieFiles = DiskIndex.getTxts(vrPath)
     allNumbers = MovieDAO.getAllMovies()
 
@@ -81,3 +81,6 @@ def tagAll():
     tagTrash()
     tagClassic()
     tagVR()
+
+
+tagAll();

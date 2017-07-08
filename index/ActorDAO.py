@@ -46,8 +46,11 @@ def getAllActors():
                           " order by favor desc, last_read_time desc", [yesterday, lastweek])
 
     results = []
+
     for row in cursor:
-        one = {"name": row[0], "url": row[1]}
+        url = row[1]
+        url = url.replace("www.nh87.cn", "nanrenvip.net")
+        one = {"name": row[0], "url": url}
         results.append(one)
 
     conn.close()

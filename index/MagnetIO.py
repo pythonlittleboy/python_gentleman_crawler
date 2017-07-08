@@ -3,6 +3,8 @@ from engine import cilibar as cilibar
 from engine import clpig as clpig
 from index import DiskIndex
 from index import SysConst
+from index import MovieDAO
+
 
 def getMagnet(avNumber):
     engine = clpig
@@ -23,11 +25,28 @@ def getMagnetFromTemp():
                 print(mag)
                 mags.append(mag)
     except Exception as err:
-            print(err)
+        print(err)
     finally:
         for mag in mags:
             print(mag)
 
     return mags
 
-#getMagnetFromTemp()
+
+def getMagnetFromDB():
+    #images = DiskIndex.getAllImages(SysConst.getImageTempPath())
+    movies = MovieDAO.getMoviesByCondition("local = 2")
+    mags = []
+    try:
+        for movie in movies:
+            mag = getMagnet(movie["av_number"])
+            if mag:
+                print(mag)
+                mags.append(mag)
+    except Exception as err:
+        print(err)
+    finally:
+        for mag in mags:
+            print(mag)
+
+    return mags

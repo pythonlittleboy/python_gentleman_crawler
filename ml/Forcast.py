@@ -2,6 +2,7 @@ from index import MovieDAO
 from index import SysConst
 from ml import BayesTrainingFromDB as bayes
 
+
 def forcastToDB():
     localBayes = bayes.BayesTrainingFromDB("local")
     vrBayes = bayes.BayesTrainingFromDB("vr")
@@ -23,6 +24,7 @@ def forcastToDB():
     conn.commit()
     conn.close()
 
+
 def forcastToNumbers():
     localBayes = bayes.BayesTrainingFromDB("local")
     vrBayes = bayes.BayesTrainingFromDB("vr")
@@ -30,7 +32,7 @@ def forcastToNumbers():
     movies = MovieDAO.getMoviesByCondition("local is null")
 
     for movie in movies:
-        #token = movie["av_number"] + movie["actor"] + movie["title"]
+        # token = movie["av_number"] + movie["actor"] + movie["title"]
         token = movie["av_number"] + movie["title"]
         local = localBayes.probable(token)
         vr = vrBayes.probable(token)
@@ -40,10 +42,37 @@ def forcastToNumbers():
     movies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
 
     numbers = []
-    for i in range (0, 80):
+    for i in range(0, 80):
         print(movies[i])
         numbers.append(movies[i]["av_number"])
 
     return numbers;
 
-#print(forcastToNumbers())
+
+def forcastMovies():
+    localBayes = bayes.BayesTrainingFromDB("local")
+    vrBayes = bayes.BayesTrainingFromDB("vr")
+
+    movies = MovieDAO.getMoviesByCondition("local = 0 and trash = 0 and skip = 0")
+
+    for movie in movies:
+        # token = movie["av_number"] + movie["actor"] + movie["title"]
+        token = movie["av_number"] + movie["title"]
+        local = localBayes.probable(token)
+        vr = vrBayes.probable(token)
+
+        movie["vr_forcast"] = local + vr
+
+    movies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
+
+    movies = movies[0:100]
+    '''
+    numbers = []
+    for i in range(0, 100):
+        #print(movies[i])
+        numbers.append(movies[i])
+    '''
+    return movies;
+
+
+    # print(forcastToNumbers())

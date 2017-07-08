@@ -1,4 +1,5 @@
 import requests
+import time
 
 COOKIE = "Hm_lvt_f55674d4367f95a13931a2de921dd8ac=1485677791,1487860982; UM_distinctid=15b67a3852fc5-058bdcee22d39a-514f291e-1fa400-15b67a38530251; Hm_lvt_196c24ae350e0996212996390aed04b2=1492091697,1492224007,1492433852,1492869286; CNZZDATA1261666818=121300809-1492087598-%7C1494511103; tjfwkey=72082o; Hm_lvt_4fc8c6a8a6a361779e76a82b679b3960=1494249267,1494509188,1495343829,1495808475; Hm_lpvt_4fc8c6a8a6a361779e76a82b679b3960=1495808475; __dsje_cpv_r_4936_cpv_plan_ids=%7C406%7C"
 
@@ -12,7 +13,7 @@ If-None-Match:W/"58d37af5-8d5d"
 Upgrade-Insecure-Requests:1
     """
     headers = {
-        'Host': 'www.nh87.cn',
+        #'Host': 'www.nh87.cn',
         'Cache-Control': 'max-age=0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
@@ -35,7 +36,7 @@ Upgrade-Insecure-Requests:1
 
 def getImage(url):
     headers = {
-        'Host': 'imgs.nh87.cn',
+        #'Host': 'img1.chaomabaida.com',
         'Cache-Control': 'max-age=0',
         'Accept': 'image/webp,image/*,*/*;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
@@ -44,6 +45,13 @@ def getImage(url):
         'Accept-Language': 'zh-CN,zh;q=0.8',
         #'Cookie': COOKIE
     }
-    r = requests.get(url, headers=headers)
-    return r.content
+
+    while True:
+        try:
+            #time.sleep(1)
+            r = requests.get(url, headers=headers, timeout=8)
+            return r.content
+        except Exception as err:
+            print(err)
+
 

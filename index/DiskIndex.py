@@ -98,8 +98,17 @@ def copyImageToTemp(movieNumbers):
                 shutil.copy(image["fullpath"], SysConst.getImageTempPath() + image["filename"])
                 break;
 
+def copyOneImageToTemp(actor, avNumber):
+    if not os.path.exists(SysConst.getImageTempPath()):
+        os.mkdir(SysConst.getImageTempPath())
+
+    source = SysConst.getImageCachePath() + actor + "//" + avNumber + ".jpg"
+    to = SysConst.getImageTempPath() + avNumber + ".jpg"
+    shutil.copy(source, to)
+
 # avList = [{"av_number": "ABS-072"}]
 # pprint(findLocalMovies(avList=avList, path="G://Game//File//"))
 
 #deleteSmallImages(SysConst.getImageCachePath())
 #copyImageToTemp(["ABS-072"])
+#copyOneImageToTemp("阿部乃美久", "ARMG-274")

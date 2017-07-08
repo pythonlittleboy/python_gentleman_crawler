@@ -6,7 +6,7 @@ import index.HtmlIO as htmlIO
 cache = False
 
 def findActors():
-    html = HtmlIO.readHtml("find", "http://www.nh87.cn/find.html", cache)
+    html = HtmlIO.readHtml("find", "http://nanrenvip.net/find.html", cache)
     actors =  getActors(html)
     newActors = ActorDAO.saveActors(actors)
 

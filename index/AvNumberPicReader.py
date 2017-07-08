@@ -4,7 +4,9 @@ import index.HtmlIO as htmlIO
 
 
 def getAvNumberPic(html):
-    #print(html)
+    if len(html) < 10:
+        return [];
+
     content = pq(html).find("div.asdrt .list_text a b");
     content = getTexts(content)
 
@@ -20,8 +22,8 @@ def getAvNumberPic(html):
         #pic = "http://www.nh87.cn" + pq(image).attr("data-original")
         pic = pq(image).attr("data-original")
 
-        if not pic.startswith("http://imgs.nh87.cn"):
-            pic = "http://imgs.nh87.cn" + pic
+        #if not pic.startswith("http://imgs.nh87.cn"):
+        #    pic = "http://imgs.nh87.cn" + pic
 
         pic = pic.replace("small-", "")
         pic = pic.replace("-small", "")
