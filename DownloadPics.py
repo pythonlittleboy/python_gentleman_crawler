@@ -17,5 +17,17 @@ def downloadActor(actor):
     for movie in movies:
         imageIO.saveImage(movie)
 
-#downloadPicsByActors(["一之濑遥"])
+def deleteNotExistImageMovies():
+    actors = actorDAO.getAllActorsFully()
+    for actor in actors:
+        deleteNotExistImageMoviesActor(actor["name"])
+
+def deleteNotExistImageMoviesActor(actor):
+    movies = movieDAO.getMoviesByCondition("actor = '" + actor + "'")
+    for movie in movies:
+        if not imageIO.isExistImage(movie):
+            movieDAO.deleteMovie(movie["av_number"])
+
+#downloadPicsByActors(["xxx"])
 downloadPicsAllActors()
+#deleteNotExistImageMovies()

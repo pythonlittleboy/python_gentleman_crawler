@@ -25,7 +25,7 @@ Upgrade-Insecure-Requests:1
 
     while True:
         try:
-            r = requests.get(url, headers=headers, timeout=5)
+            r = requests.get(url, headers=headers, timeout=10)
             r.encoding = 'utf-8'
             return r.text
         except Exception as err:
@@ -46,12 +46,17 @@ def getImage(url):
         #'Cookie': COOKIE
     }
 
+    errorCount = 0
+
     while True:
         try:
             #time.sleep(1)
-            r = requests.get(url, headers=headers, timeout=8)
+            if errorCount > 10:
+                return None
+            r = requests.get(url, headers=headers, timeout=20)
             return r.content
         except Exception as err:
+            errorCount = errorCount + 1
             print(err)
 
 

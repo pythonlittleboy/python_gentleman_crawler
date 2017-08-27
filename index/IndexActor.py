@@ -70,7 +70,7 @@ def saveActorToDB(url, actor, cache):
     conn.commit();
     conn.close();
 
-    return newList
+    return avList
 
 def findUndownloadFiles(path, actors):
     allNumbers = []

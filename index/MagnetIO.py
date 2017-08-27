@@ -6,9 +6,9 @@ from index import SysConst
 from index import MovieDAO
 
 
-def getMagnet(avNumber):
+def getMagnet(avNumber, skipMagnet):
     engine = clpig
-    mag = engine.readMagnet(avNumber)
+    mag = engine.readMagnet(avNumber, skipMagnet)
     if len(mag) > 10:
         return mag
     else:
@@ -35,13 +35,42 @@ def getMagnetFromTemp():
 
 def getMagnetFromDB():
     #images = DiskIndex.getAllImages(SysConst.getImageTempPath())
-    movies = MovieDAO.getMoviesByCondition("local = 2")
+    movies = MovieDAO.getMoviesByCondition("local = 2 and magnet is null")
     mags = []
     try:
         for movie in movies:
-            mag = getMagnet(movie["av_number"])
+            mag = getMagnet(movie["av_number"], None)
             if mag:
                 print(mag)
+                MovieDAO.updateMovieMagnet2(movie["av_number"], mag)
+                mags.append(mag)
+                if len(mags) > 30:
+                    break;
+    except Exception as err:
+        print(err)
+    finally:
+        for mag in mags:
+            print(mag)
+
+    return mags
+
+
+def getUndownloadMagnets():
+    #images = DiskIndex.getAllImages(SysConst.getImageTempPath())
+    movies = MovieDAO.getMoviesByCondition("local = 2 and magnet is not null")
+    for movie in movies:
+        print(movie["magnet"])
+
+
+def reloadErrorMagnets():
+    movies = MovieDAO.getMoviesByCondition("local = 2 and magnet is not null")
+    mags = []
+    try:
+        for movie in movies:
+            mag = getMagnet(movie["av_number"], movie["magnet"])
+            if mag:
+                print(mag)
+                MovieDAO.updateMovieMagnet2(movie["av_number"], mag)
                 mags.append(mag)
     except Exception as err:
         print(err)

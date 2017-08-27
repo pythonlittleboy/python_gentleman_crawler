@@ -73,11 +73,11 @@ def getAllMoviesByActor(actor):
 
 def getMoviesByCondition(condition):
     conn = getConnect()
-    cursor = conn.execute("SELECT av_number, actor, title, remote_cover from t_movies where " + condition, [])
+    cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet from t_movies where " + condition, [])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3], "magnet": row[4]})
 
     conn.close()
 
@@ -88,6 +88,15 @@ def updateMovieMagnet(avNumber, magnet, conn):
     cursor.execute("update t_movies set magnet=? where av_number=?",
                    [magnet, avNumber])
 
+
+def updateMovieMagnet2(avNumber, magnet):
+    #print(avNumber + ": " + magnet)
+    conn = SysConst.getConnect()
+    conn.execute("update t_movies set magnet=? where av_number=?",
+                   [magnet, avNumber])
+    conn.commit()
+    conn.close()
+
 def getMovieByAvNumber(avNumber, conn):
     cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet from t_movies where av_number=?", [avNumber])
 
@@ -96,3 +105,9 @@ def getMovieByAvNumber(avNumber, conn):
         return {"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3], "magnet": row[4]}
 
     return False
+
+def deleteMovie(avNumber):
+    conn = getConnect()
+    conn.execute("delete from t_movies where av_number=?", [avNumber])
+    conn.close()
+    print("deleted " + avNumber)

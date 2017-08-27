@@ -23,9 +23,12 @@ def saveMovieToDB(skipActors):
             break;
 
         print("begin to read: " + str(actor))
-        newMovies = indexActor.saveActorToDB(url=actor["url"], actor=actor["name"], cache=False)
+        allMovies = indexActor.saveActorToDB(url=actor["url"], actor=actor["name"], cache=False)
         #print("find new movies: " + str(newMovies))
-        ActorDAO.updateLastReadTime(actor["name"])
+        if len(allMovies) > 0:
+            ActorDAO.updateLastReadTime(actor["name"])
+        else:
+            print("not found " + actor["name"] + "'s movies.")
 
     return allMovies
 

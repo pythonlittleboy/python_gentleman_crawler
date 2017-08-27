@@ -37,7 +37,7 @@ def getImage(url):
     timeout = 20
     socket.setdefaulttimeout(timeout)
 
-    sleep_download_time = 2
+    sleep_download_time = 1
     time.sleep(sleep_download_time)
 
     headers = {

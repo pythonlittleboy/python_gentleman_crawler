@@ -21,9 +21,10 @@ def checkFile(filePath):
 
 def saveFileByRequest(url, filePath):
     img = httpfetch2.getImage(url)
-    file = open(filePath, "wb")
-    file.write(img)
-    file.close();
+    if img:
+        file = open(filePath, "wb")
+        file.write(img)
+        file.close();
 
 def saveFileByURL(url, filePath):
     urllib.request.urlretrieve(url, filePath)
@@ -46,6 +47,18 @@ def saveImage(av):
     else:
         return False
 
+
+
+
 #av = {'av_number': 'IPZ-976', 'remote_cover': 'http://www.nh87.cn/uploads/2017/06/ipz976pl.jpg', 'actor': '樱空桃'}
 #saveImage(av)
 #checkDirPath("ABC")
+
+def isExistImage(av):
+    actor = av["actor"]
+    avNumber = av["av_number"]
+    url = av["remote_cover"]
+    url = url.replace("www.nh87.cn", "imgs.nh87.cn")
+    filePath = getFilePath(actor, avNumber)
+
+    return checkFile(filePath)

@@ -49,23 +49,36 @@ def forcastToNumbers():
     return numbers;
 
 
-def forcastMovies():
-    localBayes = bayes.BayesTrainingFromDB("local")
-    vrBayes = bayes.BayesTrainingFromDB("vr")
+global allForcastMovies
+allForcastMovies = False
 
-    movies = MovieDAO.getMoviesByCondition("local = 0 and trash = 0 and skip = 0")
+def forcastMovies(start, limit):
+    global allForcastMovies
 
-    for movie in movies:
-        # token = movie["av_number"] + movie["actor"] + movie["title"]
-        token = movie["av_number"] + movie["title"]
-        local = localBayes.probable(token)
-        vr = vrBayes.probable(token)
+    if not allForcastMovies:
+        print("do forcast")
+        localBayes = bayes.BayesTrainingFromDB("local")
+        vrBayes = bayes.BayesTrainingFromDB("vr")
+        skipBayes = bayes.BayesTrainingFromDB("skip")
+        trashBayes = bayes.BayesTrainingFromDB("trash")
 
-        movie["vr_forcast"] = local + vr
+        movies = MovieDAO.getMoviesByCondition("local = 0 and trash = 0 and skip = 0")
 
-    movies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
+        for movie in movies:
+            token = movie["av_number"] + movie["actor"] + movie["title"]
+            # token = movie["av_number"] + movie["title"]
+            local = localBayes.probable(token)
+            vr = vrBayes.probable(token)
+            skip = skipBayes.probable(token)
+            trash = trashBayes.probable(token)
 
-    movies = movies[0:100]
+            #movie["vr_forcast"] = local + vr
+            movie["vr_forcast"] = vr - skip * 0.4 - trash * 0.01 + local * 0.3
+
+        allForcastMovies = sorted(movies, key=lambda d: d['vr_forcast'], reverse=True)
+
+    movies = allForcastMovies[start:(start+limit)]
+
     '''
     numbers = []
     for i in range(0, 100):
@@ -74,5 +87,5 @@ def forcastMovies():
     '''
     return movies;
 
-
-    # print(forcastToNumbers())
+def countForcastMovies():
+    return len(allForcastMovies)

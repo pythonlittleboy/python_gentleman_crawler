@@ -4,6 +4,7 @@ import time
 import random
 
 def convertToNumber(num):
+    num = num.replace(",", "")
     result = 0
     if num.endswith("GB"):
         result = float(num[:-2]) * 1024 * 1024
@@ -20,10 +21,12 @@ def getMagnet(url):
     return "magnet:?xt=urn:btih:" + url[len(first):-len(last)]
 
 
-def readMagnet(avNumber):
+def readMagnet(avNumber, skipMagnet):
+    sleep_download_time = 2
+    time.sleep(sleep_download_time)
 
     #url = "http://www.clpig.org/torrent/"+avNumber+".html"
-    url = "http://www.cilizhuzhu.com/torrent/" + avNumber + ".html"
+    url = "http://www.cilizhuzhu.org/torrent/" + avNumber + ".html"
     print("begin to read: " + url);
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -53,6 +56,10 @@ def readMagnet(avNumber):
         href = el.find("a").attr("href")
         title = el.find("a").attr("title")
 
+        magnet = getMagnet(href)
+        if magnet == skipMagnet:
+            continue;
+
         for specialTitle in specialTitles:
             if specialTitle in title:
                 foundSpecial = True
@@ -61,7 +68,6 @@ def readMagnet(avNumber):
         if not foundSpecial:
             size = el.find("div.col-lg-1").text()
             size = convertToNumber(size)
-
             resultList.append((href, size))
 
     if foundSpecial:

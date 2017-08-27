@@ -1,0 +1,8 @@
+.idea
+data
+*.db
+*.jpg
+web/static
+__pycache__
+**/*.pyc
+*.pyc
