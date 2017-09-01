@@ -113,14 +113,15 @@ class BayesTraining:
         return allResult
 
 
-prefixPath = "D://Workspace//pythonWorkspace//python_gentleman_crawler//data//vr//"
-theDir = prefixPath + "training//"
-stoplistfile = prefixPath + "stopwords.txt"
-testDir = prefixPath + "test//"
-bt = BayesTraining(theDir, stoplistfile)
-#print(bt.vocabulary)
-#print(bt.prob)
+if __name__ =='__main__':
+    prefixPath = "D://Workspace//pythonWorkspace//python_gentleman_crawler//data//vr//"
+    theDir = prefixPath + "training//"
+    stoplistfile = prefixPath + "stopwords.txt"
+    testDir = prefixPath + "test//"
+    bt = BayesTraining(theDir, stoplistfile)
+    #print(bt.vocabulary)
+    #print(bt.prob)
 
-#print(bt.classify("犯されたアイドル あやみ旬果"))
-#print(bt.classify("ボクを好き過ぎるボクだけの従順ペット 2 鈴村あいり"))
-print(bt.testClassify(testDir))
+    #print(bt.classify("犯されたアイドル あやみ旬果"))
+    #print(bt.classify("ボクを好き過ぎるボクだけの従順ペット 2 鈴村あいり"))
+    print(bt.testClassify(testDir))
