@@ -70,6 +70,22 @@ def getAllMoviesByActor(actor):
 
     return results
 
+def getNoMagnetMovies():
+    conn = getConnect()
+
+    lastweek = round(time.time() - 24 * 60 * 60 * 6)
+    cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet "
+                    " from t_movies "
+                    " where local = 2 and magnet is null and last_read_time < ? "
+                    " order by last_read_time asc ", [lastweek])
+
+    results = []
+    for row in cursor:
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3], "magnet": row[4]})
+
+    conn.close()
+
+    return results
 
 def getMoviesByCondition(condition):
     conn = getConnect()
@@ -94,6 +110,18 @@ def updateMovieMagnet2(avNumber, magnet):
     conn = SysConst.getConnect()
     conn.execute("update t_movies set magnet=? where av_number=?",
                    [magnet, avNumber])
+    conn.commit()
+    conn.close()
+
+def updateMovieLastReadTime(avNumber):
+    conn = SysConst.getConnect()
+    now = round(time.time())
+
+    cursor = conn.cursor()
+    cursor.execute(
+        "update t_movies set last_read_time = ? where av_number = ?",
+        [now, avNumber])
+
     conn.commit()
     conn.close()
 

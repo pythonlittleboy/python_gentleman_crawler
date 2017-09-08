@@ -1,8 +1,9 @@
 import os
 
-#folder = "G:\\Game\\File\\1Class\\G古川"
 #folder = "D:\Game\Kodl\download"
-folder = "\\192.168.1.3\home\drivers\etc\kodl\download"
+#folder = "\\192.168.1.3\home\drivers\etc\kodl\download"
+folder = "Z:\drivers\etc\kodl\download"
+
 movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv", "iso"])
 
 for fpath, dirs, fs in os.walk(folder):

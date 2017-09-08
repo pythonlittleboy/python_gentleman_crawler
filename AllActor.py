@@ -32,4 +32,4 @@ def saveMovieToDB(skipActors):
 
     return allMovies
 
-saveMovieToDB(True)
+saveMovieToDB(False)

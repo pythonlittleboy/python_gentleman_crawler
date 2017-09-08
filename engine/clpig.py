@@ -4,15 +4,25 @@ import time
 import random
 
 def convertToNumber(num):
-    num = num.replace(",", "")
-    result = 0
-    if num.endswith("GB"):
-        result = float(num[:-2]) * 1024 * 1024
-    elif num.endswith("MB"):
-        result = float(num[:-2]) * 1024
-    elif num.endswith("B"):
-        result = float(num[:-2])
+    try:
+        num = num.replace(",", "").upper()
+
+        result = 1
+        if num.endswith("GB"):
+            result = float(num[:-2]) * 1024 * 1024
+        elif num.endswith("MB"):
+            result = float(num[:-2]) * 1024
+        elif num.endswith("KB"):
+            result = float(num[:-2]) * 1024
+        elif num.endswith("B"):
+            result = float(num[:-2])
+
+        #print(str(num) + " " + str(result))
+    except BaseException:
+        result = 1
+    
     return result
+    
 
 def getMagnet(url):
     #<a target="_blank" href="http://www.cilizhuzhu.com/magnet/256818E93C1ED71B16F2D6148F070907DD77BF75.html" title="ABP-418">
@@ -35,7 +45,6 @@ def readMagnet(avNumber, skipMagnet):
     res = urllib.request.urlopen(req)
     html = res.read()
     res.close()
-
     #html = urllib.request.urlopen(url).read()
 
     content = pq(html).find("div.btsowlist div.row")
@@ -45,7 +54,6 @@ def readMagnet(avNumber, skipMagnet):
         return ""
 
     resultList = []
-
     specialTitles = ["Thz.la"]
     foundSpecial = False
     specialHref = ""
@@ -55,6 +63,9 @@ def readMagnet(avNumber, skipMagnet):
         # print(el)
         href = el.find("a").attr("href")
         title = el.find("a").attr("title")
+
+        if not href:
+            break
 
         magnet = getMagnet(href)
         if magnet == skipMagnet:
@@ -67,8 +78,8 @@ def readMagnet(avNumber, skipMagnet):
 
         if not foundSpecial:
             size = el.find("div.col-lg-1").text()
-            size = convertToNumber(size)
-            resultList.append((href, size))
+            sizeNumber = convertToNumber(size)
+            resultList.append((href, sizeNumber))
 
     if foundSpecial:
         return getMagnet(specialHref)

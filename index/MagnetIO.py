@@ -35,17 +35,22 @@ def getMagnetFromTemp():
 
 def getMagnetFromDB():
     #images = DiskIndex.getAllImages(SysConst.getImageTempPath())
-    movies = MovieDAO.getMoviesByCondition("local = 2 and magnet is null")
+
+    movies = MovieDAO.getNoMagnetMovies()
     mags = []
     try:
         for movie in movies:
             mag = getMagnet(movie["av_number"], None)
+            print(mag)
             if mag:
                 print(mag)
                 MovieDAO.updateMovieMagnet2(movie["av_number"], mag)
                 mags.append(mag)
                 if len(mags) > 20:
                     break;
+            else:
+                MovieDAO.updateMovieLastReadTime(movie["av_number"])
+            
     except Exception as err:
         print(err)
     finally:

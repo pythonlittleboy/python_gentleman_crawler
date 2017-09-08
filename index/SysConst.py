@@ -8,24 +8,24 @@ def getSimiConnect():
 
 def getRootPath():
     #return "G://Game//File//"
-    return "D:\Game\Kodl"
+    return "Z:\drivers\etc\kodl"
 
 def getVRPath():
     #return "G://Game//File//2Ring//"
-    return "D://Game//Kodl//Ring"
+    return "Z://drivers//etc//kodl//ring"
 
 def getClassicPath():
     #return "G://Game//File//1Class//"
-    return "D://Game//Kodl//Classic"
+    return "Z://drivers//etc//kodl//classic"
 
 def getTextPath():
-    return "D://Game//Kodl//trash"
-
+    return "Z://drivers//etc//kodl//trash"
+   
 def getImageCachePath():
-    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//web//static//images//"
+    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//static//images//"
 
 def getImageTempPath():
-    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//web//static//temp//"
+    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//static//temp//"
 
 def getVRTrainDataPath():
     return "D://Workspace//pythonWorkspace//python_gentleman_crawler//data//vr//"
