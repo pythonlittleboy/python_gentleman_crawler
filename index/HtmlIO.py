@@ -3,9 +3,11 @@ import urllib.request
 import codecs
 import util.httpfetch2
 import time
+from index import SysConst
 
 def readHtml(name, url, cache):
-    filePath = "D://MyDrivers//cache//html//" + name + ".html"
+    #filePath = "D://MyDrivers//cache//html//" + name + ".html"
+    filePath = SysConst.getHtmlCachePath(name + ".html")
 
     if cache and os.path.exists(filePath):
         file = codecs.open(filePath, "r+", "utf-8")
@@ -19,6 +21,9 @@ def readHtml(name, url, cache):
     #print(html)
     #html = str(html).decode('utf8')
     #html = str(html, encoding="utf-8")
+
+    if not html:
+        raise Exception("can not get html content: " + name + ".html")
 
     fo = codecs.open(filePath, "w+", "utf-8")
     #fo = open(filePath,'w+')

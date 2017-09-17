@@ -3,6 +3,7 @@ import os
 import urllib.request
 import util.httpfetch2 as httpfetch2
 from index import SysConst
+from util import Log
 
 # SysConst.getImageCachePath()/古川伊织
 
@@ -25,6 +26,8 @@ def saveFileByRequest(url, filePath):
         file = open(filePath, "wb")
         file.write(img)
         file.close();
+    else:
+        raise Exception("can not load image: " + url)
 
 def saveFileByURL(url, filePath):
     urllib.request.urlretrieve(url, filePath)
@@ -40,8 +43,8 @@ def saveImage(av):
     filePath = getFilePath(actor, avNumber)
 
     if not(checkFile(filePath)):
-        print("begin save file: " + filePath)
-        print(url)
+        Log.info("begin save file: " + filePath)
+        Log.info(url)
         saveFile(url, filePath)
         return True
     else:

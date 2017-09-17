@@ -1,31 +1,31 @@
 import sqlite3
 
+def getHtmlCachePath(name):
+    return "/var/services/homes/lijl/dev/python_gentleman_crawler/static/temp/" + name
+
 def getConnect():
-    return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//database.db')
+    return sqlite3.connect('/var/services/homes/lijl/dev/python_gentleman_crawler/db/database.db')
 
 def getSimiConnect():
-    return sqlite3.connect('D://Workspace//pythonWorkspace//python_gentleman_crawler//db//db-similar.db')
+    return sqlite3.connect('/var/services/homes/lijl/dev/python_gentleman_crawler/db/db-similar.db')
 
 def getRootPath():
-    #return "G://Game//File//"
-    return "Z:\drivers\etc\kodl"
+    return "/var/services/homes/lijl/drivers/etc/kodl"
 
 def getVRPath():
-    #return "G://Game//File//2Ring//"
-    return "Z://drivers//etc//kodl//ring"
+    return "/var/services/homes/lijl/drivers/etc/kodl/ring"
 
 def getClassicPath():
-    #return "G://Game//File//1Class//"
-    return "Z://drivers//etc//kodl//classic"
+    return "/var/services/homes/lijl/drivers/etc/kodl/classic"
 
 def getTextPath():
-    return "Z://drivers//etc//kodl//trash"
+    return "/var/services/homes/lijl/drivers/etc/kodl/trash"
    
 def getImageCachePath():
-    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//static//images//"
+    return "/var/services/homes/lijl/dev/python_gentleman_crawler/static/images/"
 
 def getImageTempPath():
-    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//static//temp//"
+    return "/var/services/homes/lijl/dev/python_gentleman_crawler/static/temp/"
 
 def getVRTrainDataPath():
-    return "D://Workspace//pythonWorkspace//python_gentleman_crawler//data//vr//"
+    return "/var/services/homes/lijl/dev/python_gentleman_crawler/data/vr/"

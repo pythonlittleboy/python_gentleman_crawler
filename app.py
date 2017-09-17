@@ -52,8 +52,8 @@ def getRecommanderMovies():
     start = request.args.get("start", type=int, default=0)
     limit = request.args.get("limit", type=int, default=10)
 
-    movies = Forcast.forcastMovies(start, limit)
-    total = Forcast.countForcastMovies()
+    movies = MovieWebDAO.getForcastMovies(start, limit)
+    total = MovieWebDAO.countForcastMovies()
     return json.dumps({"movies": movies, "total": total}, ensure_ascii=False)
 
 @app.route('/api/download/')
@@ -102,4 +102,5 @@ def skip(avNumber=None):
 
 
 if __name__ == '__main__':
+    print("http://localhost:15001")
     app.run(host='0.0.0.0', debug=True, port=15001)

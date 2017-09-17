@@ -125,6 +125,12 @@ def updateMovieLastReadTime(avNumber):
     conn.commit()
     conn.close()
 
+def updateMovieVRForcast(avNumber, forcast, conn):
+    cursor = conn.cursor()
+    cursor.execute(
+        "update t_movies set forcast = ? where av_number = ?",
+        [forcast, avNumber])
+
 def getMovieByAvNumber(avNumber, conn):
     cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet from t_movies where av_number=?", [avNumber])
 

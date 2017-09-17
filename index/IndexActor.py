@@ -4,14 +4,14 @@ from index.HtmlIO import readHtml
 import index.MovieDAO as movieDAO
 import index.DiskIndex as diskIndex
 import time
-
+from util import Log
 
 def indexActor(url, actor, cache, files):
     avList = [];
 
     html = readHtml(actor, url, cache)
     results = getAvNumberPic(html)
-    print("find av 2: " + str(len(results)))
+    Log.info("find av 2: " + str(len(results)))
 
     for av in results:
         av["actor"] = actor
@@ -45,7 +45,7 @@ def saveActorToDB(url, actor, cache):
 
     html = readHtml(actor, url, cache)
     results = getAvNumberPic(html)
-    print("saveActorToDB find " + actor + " movies: " + str(len(results)))
+    Log.info("saveActorToDB find " + actor + " movies: " + str(len(results)))
 
     for av in results:
         av["actor"] = actor
@@ -62,7 +62,7 @@ def saveActorToDB(url, actor, cache):
         #saveImage(av)
         #movieDAO.updateMovieFile(av)
         if not exists:
-            print("find new movie: " + str(av))
+            Log.info("find new movie: " + str(av))
             newList.append(av)
 
         #if now > av.get("public_time"):
@@ -89,7 +89,7 @@ def findUndownloadFiles(path, actors):
             filename = file["filename"].lower()
             if filename.find(first) > -1 and filename.find(second) > -1:
                 found = True
-                print("find " + name + " : " + file["fullpath"])
+                Log.info("find " + name + " : " + file["fullpath"])
                 break;
         else:
             unloadedNumbers.append(name)

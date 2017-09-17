@@ -41,12 +41,11 @@ def getMagnetFromDB():
     try:
         for movie in movies:
             mag = getMagnet(movie["av_number"], None)
-            print(mag)
             if mag:
                 print(mag)
                 MovieDAO.updateMovieMagnet2(movie["av_number"], mag)
                 mags.append(mag)
-                if len(mags) > 20:
+                if len(mags) > 1:
                     break;
             else:
                 MovieDAO.updateMovieLastReadTime(movie["av_number"])

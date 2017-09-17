@@ -1,5 +1,6 @@
 import requests
 import time
+from util import Log
 
 COOKIE = "Hm_lvt_f55674d4367f95a13931a2de921dd8ac=1485677791,1487860982; UM_distinctid=15b67a3852fc5-058bdcee22d39a-514f291e-1fa400-15b67a38530251; Hm_lvt_196c24ae350e0996212996390aed04b2=1492091697,1492224007,1492433852,1492869286; CNZZDATA1261666818=121300809-1492087598-%7C1494511103; tjfwkey=72082o; Hm_lvt_4fc8c6a8a6a361779e76a82b679b3960=1494249267,1494509188,1495343829,1495808475; Hm_lpvt_4fc8c6a8a6a361779e76a82b679b3960=1495808475; __dsje_cpv_r_4936_cpv_plan_ids=%7C406%7C"
 
@@ -23,13 +24,19 @@ Upgrade-Insecure-Requests:1
         'Cookie': COOKIE
     }
 
+    errorCount = 0
+
     while True:
         try:
+            if errorCount is 2:
+                return None
             r = requests.get(url, headers=headers, timeout=10)
             r.encoding = 'utf-8'
             return r.text
         except Exception as err:
-            print(err)
+            errorCount = errorCount + 1
+            #print(err)
+            Log.error(err)
 
 
 
@@ -51,12 +58,13 @@ def getImage(url):
     while True:
         try:
             #time.sleep(1)
-            if errorCount > 10:
+            if errorCount is 2:
                 return None
-            r = requests.get(url, headers=headers, timeout=20)
+            r = requests.get(url, headers=headers, timeout=3)
             return r.content
         except Exception as err:
             errorCount = errorCount + 1
-            print(err)
+            #print(err)
+            Log.error(err)
 
 

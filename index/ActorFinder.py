@@ -7,6 +7,10 @@ cache = False
 
 def findActors():
     html = HtmlIO.readHtml("find", "http://nanrenvip.net/find.html", cache)
+    
+    if not html or len(html) < 100:
+        raise Exception("wrong actors page content")
+    
     actors =  getActors(html)
     newActors = ActorDAO.saveActors(actors)
 
