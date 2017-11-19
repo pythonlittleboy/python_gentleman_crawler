@@ -1,6 +1,7 @@
 import os, codecs, math
 from index import MovieDAO
 from index import SysConst
+from util import Log
 
 def isEnglish(char):
     return (char >= 'a' and char <= 'z') or (char >= "A" and char <= "Z")
@@ -36,7 +37,7 @@ class BayesTrainingFromDB:
         self.totalProb = {}
         self.rows = {}
 
-        print("Counting ...")
+        Log.info("Counting ...")
         totalRows = 0
         for category in self.categories:
             #print('    category: ' + category)

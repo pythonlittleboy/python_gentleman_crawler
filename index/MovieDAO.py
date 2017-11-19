@@ -12,7 +12,8 @@ def saveMovie(av, conn):
 
     avNumber = av["av_number"]
     remoteCover = av["remote_cover"]
-    actor = av["actor"];
+    actor = av["actor"]
+    shortName = av["short_name"]
     publicTime = av.get("public_time", None)
     title = av.get("title")
 
@@ -25,8 +26,8 @@ def saveMovie(av, conn):
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     cursor.execute(
-        "insert into t_movies (av_number, actor, title, remote_cover, create_time, public_time) values (?, ?, ?, ?, ?, ?)",
-        [avNumber, actor, title, remoteCover, now, publicTime])
+        "insert into t_movies (av_number, actor, title, short_name, remote_cover, create_time, public_time) values (?, ?, ?, ?, ?, ?, ?)",
+        [avNumber, actor, title, shortName, remoteCover, now, publicTime])
     #conn.commit()
     #conn.close()
 
@@ -89,11 +90,16 @@ def getNoMagnetMovies():
 
 def getMoviesByCondition(condition):
     conn = getConnect()
-    cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet from t_movies where " + condition, [])
+    cursor = conn.execute("SELECT av_number, actor, title, remote_cover, magnet, short_name from t_movies where " + condition, [])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "remote_cover": row[3], "magnet": row[4]})
+        results.append({"av_number": row[0], 
+            "actor": row[1], 
+            "title": row[2], 
+            "remote_cover": row[3], 
+            "magnet": row[4],
+            "short_name": row[5]})
 
     conn.close()
 

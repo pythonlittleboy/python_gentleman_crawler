@@ -20,16 +20,17 @@ def saveActors(actors):
 def saveActor(actor, conn):
     name = actor["name"]
     url = actor["url"]
+    shortName = actor["short_name"]
 
     cursor = conn.cursor()
-    cursor = cursor.execute("SELECT * from t_actors where name=?", [name])
+    cursor = cursor.execute("SELECT * from t_actors where short_name=?", [shortName])
 
     if (len(cursor.fetchall()) > 0):
         return True
 
     cursor.execute(
-        "insert into t_actors (name, url) values (?, ?)",
-        [name, url])
+        "insert into t_actors (name, url, short_name) values (?, ?, ?)",
+        [name, url, shortName])
 
     return False
 
@@ -39,7 +40,7 @@ def getAllActors():
     yesterday = round(time.time() - 24 * 60 * 60)
     lastweek = round(time.time() - 24 * 60 * 60 * 3)
     # print(yesterday)
-    cursor = conn.execute("SELECT * from t_actors where "
+    cursor = conn.execute("SELECT name, url, short_name from t_actors where "
                           " (favor = 1 and last_read_time < ?) "
                           " or (favor = 0 and last_read_time < ?)"
                           " or last_read_time is null"
@@ -50,7 +51,7 @@ def getAllActors():
     for row in cursor:
         url = row[1]
         url = url.replace("www.nh87.cn", "nanrenvip.net")
-        one = {"name": row[0], "url": url}
+        one = {"name": row[0], "url": url, "short_name": row[2]}
         results.append(one)
 
     conn.close()
@@ -60,12 +61,12 @@ def getAllActors():
 def getAllActorsFully():
     conn = SysConst.getConnect()
     # print(yesterday)
-    cursor = conn.execute("SELECT * from t_actors "
+    cursor = conn.execute("SELECT name, url, short_name from t_actors "
                           " order by favor desc, last_read_time desc", [])
 
     results = []
     for row in cursor:
-        one = {"name": row[0], "url": row[1]}
+        one = {"name": row[0], "url": row[1], "short_name": row[2]}
         results.append(one)
 
     conn.close()

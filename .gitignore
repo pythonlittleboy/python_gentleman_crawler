@@ -2,9 +2,11 @@
 data
 *.db
 *.jpg
-web/static
+static/**
 __pycache__
 **/*.pyc
 *.pyc
 db/database.db
 engine/__pycache__/clpig.cpython-36.pyc
+nohup.out
+system.log

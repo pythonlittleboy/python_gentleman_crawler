@@ -8,11 +8,11 @@ def getConnect():
 
 def getRecentlyMovies(start, limit):
     conn = getConnect()
-    cursor = conn.execute("select av_number, actor, title from t_movies where local = 0 and skip != 1 and trash != 1 order by create_time desc limit ?,? ", [start, limit])
+    cursor = conn.execute("select av_number, actor, title, short_name from t_movies where local = 0 and skip != 1 and trash != 1 order by create_time desc limit ?,? ", [start, limit])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "short_name": row[3]})
 
     conn.close()
 
@@ -32,11 +32,11 @@ def countRecentlyMovies():
 
 def getDownloadMovies(start, limit):
     conn = getConnect()
-    cursor = conn.execute("select av_number, actor, title from t_movies where local = 2 order by create_time desc limit ?,? ", [start, limit])
+    cursor = conn.execute("select av_number, actor, title, short_name from t_movies where local = 2 order by create_time desc limit ?,? ", [start, limit])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "short_name": row[3]})
 
     conn.close()
 
@@ -52,11 +52,11 @@ def countDownloadMovies():
 
 def getFavorMovies(start, limit):
     conn = getConnect()
-    cursor = conn.execute("select av_number, actor, title from t_movies m join t_actors a on m.actor = a.name where a.favor = 1 and m.local = 0 and m.trash = 0 order by create_time desc limit ?,? ", [start, limit])
+    cursor = conn.execute("select av_number, actor, title, m.short_name from t_movies m join t_actors a on m.actor = a.name where a.favor = 1 and m.local = 0 and m.trash = 0 order by create_time desc limit ?,? ", [start, limit])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "short_name": row[3]})
 
     conn.close()
 
@@ -81,11 +81,11 @@ def getSearchMovies(start, limit, keyword):
     else:
         keyword = "%" + keyword + "%"
 
-    cursor = conn.execute("select av_number, actor, title from t_movies where local = 0 and skip = 0 and trash = 0 and (title like ? or actor like ?) order by create_time desc limit ?,? ", [keyword, keyword, start, limit])
+    cursor = conn.execute("select av_number, actor, title, short_name from t_movies where local = 0 and skip = 0 and trash = 0 and (title like ? or actor like ? or av_number like ?) order by forcast desc limit ?,? ", [keyword, keyword, keyword, start, limit])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "short_name": row[3]})
 
     conn.close()
 
@@ -100,8 +100,8 @@ def countSearchMovies(keyword):
         keyword = "%" + keyword + "%"
 
     cursor = conn.execute(
-        "select count(*) from t_movies where local = 0 and skip = 0 and trash = 0 and (title like ? or actor like ?)",
-        [keyword, keyword])
+        "select count(*) from t_movies where local = 0 and skip = 0 and trash = 0 and (title like ? or actor like ? or av_number like ?)",
+        [keyword, keyword, keyword])
 
     row = cursor.fetchone()
     conn.close()
@@ -124,11 +124,11 @@ def downloadMovie(avNumber):
 
 def getForcastMovies(start, limit):
     conn = getConnect()
-    cursor = conn.execute("select av_number, actor, title from t_movies where local = 0 and skip != 1 and trash != 1 order by forcast desc limit ?,? ", [start, limit])
+    cursor = conn.execute("select av_number, actor, title, short_name from t_movies where local = 0 and skip != 1 and trash != 1 order by forcast desc limit ?,? ", [start, limit])
 
     results = []
     for row in cursor:
-        results.append({"av_number": row[0], "actor": row[1], "title": row[2]})
+        results.append({"av_number": row[0], "actor": row[1], "title": row[2], "short_name": row[3]})
 
     conn.close()
 

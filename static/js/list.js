@@ -83,7 +83,8 @@ var app = new Vue({
 
                 for (var i=0; i<movies.length; i++) {
                     var item = movies[i];
-                    item.src = "/static/images/" + item.actor + "/" + item.av_number + ".jpg";
+                    //item.src = "/static/images/" + item.actor + "/" + item.av_number + ".jpg";
+                    item.src = "/static/images/" + item.short_name + "/" + item.av_number + ".jpg";
                     item.new_title = item.av_number + " " + item.title;
                     item.index = i;
                 }

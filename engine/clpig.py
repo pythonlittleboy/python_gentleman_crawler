@@ -2,6 +2,7 @@ from pyquery import PyQuery as pq
 import urllib
 import time
 import random
+from util import httpfetch2
 
 def convertToNumber(num):
     try:
@@ -26,19 +27,22 @@ def convertToNumber(num):
 
 def getMagnet(url):
     #<a target="_blank" href="http://www.cilizhuzhu.com/magnet/256818E93C1ED71B16F2D6148F070907DD77BF75.html" title="ABP-418">
-    first = "http://www.cilizhuzhu.com/magnet/"
+    #first = "http://www.cilizhuzhu.com/magnet/"
+    first = "http://www.cilizhu1.com/magnet/"
     last = ".html"
     return "magnet:?xt=urn:btih:" + url[len(first):-len(last)]
 
 
 def readMagnet(avNumber, skipMagnet):
-    sleep_download_time = 2
-    time.sleep(sleep_download_time)
+    #sleep_download_time = 10
+    #time.sleep(sleep_download_time)
 
     #url = "http://www.clpig.org/torrent/"+avNumber+".html"
-    url = "http://www.cilizhuzhu.org/torrent/" + avNumber + ".html"
+    #url = "http://www.cilizhuzhu.org/torrent/" + avNumber + ".html"
+    url = "http://www.cilizhu1.com/torrent/" + avNumber + ".html"
     print("begin to read: " + url);
 
+    '''
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                              'Chrome/51.0.2704.63 Safari/537.36'}
     req = urllib.request.Request(url=url, headers=headers)
@@ -46,6 +50,9 @@ def readMagnet(avNumber, skipMagnet):
     html = res.read()
     res.close()
     #html = urllib.request.urlopen(url).read()
+    '''
+
+    html = httpfetch2.getHtml2(url)
 
     content = pq(html).find("div.btsowlist div.row")
 

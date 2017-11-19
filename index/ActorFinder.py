@@ -25,8 +25,16 @@ def getActors(html):
     for e in elements:
         el = pq(e)
         one = {}
+        href = el.attr("href")
+
+        if href.rfind("/") > -1:
+            one["short_name"] = href[0:href.rfind("/")]
+        else:
+            one["short_name"] = href
+
         one["name"] = el.text()
-        one["url"] = "http://www.nh87.cn/" + el.attr("href")
+        one["url"] = "http://www.nh87.cn/" + href
+
         actors.append(one)
 
     return actors

@@ -6,22 +6,24 @@ import index.DiskIndex as diskIndex
 import time
 from util import Log
 
-def indexActor(url, actor, cache, files):
-    avList = [];
+def indexActor(url, actor, cache, files, shortName):
+    avList = []
 
-    html = readHtml(actor, url, cache)
+    html = readHtml(shortName, url, cache)
+    #Log.info("111")
     results = getAvNumberPic(html)
     Log.info("find av 2: " + str(len(results)))
 
     for av in results:
         av["actor"] = actor
+        av["short_name"] = shortName
         # print(av)
         avList.append(av)
 
     diskIndex.findLocalMovies(avList, files)
 
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    newList = [];
+    newList = []
 
     conn = SysConst.getConnect()
 
@@ -35,25 +37,25 @@ def indexActor(url, actor, cache, files):
         if not av.get("local_movie") and now > av.get("public_time"):
             newList.append(av)
 
-    conn.commit();
-    conn.close();
+    conn.commit()
+    conn.close()
 
     return newList
 
-def saveActorToDB(url, actor, cache):
-    avList = [];
-
-    html = readHtml(actor, url, cache)
+def saveActorToDB(url, actor, cache, shortName):
+    avList = []
+    html = readHtml(shortName, url, cache)
     results = getAvNumberPic(html)
     Log.info("saveActorToDB find " + actor + " movies: " + str(len(results)))
 
     for av in results:
         av["actor"] = actor
+        av["short_name"] = shortName
         # print(av)
         avList.append(av)
 
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    newList = [];
+    newList = []
 
     conn = SysConst.getConnect()
 
@@ -67,8 +69,8 @@ def saveActorToDB(url, actor, cache):
 
         #if now > av.get("public_time"):
 
-    conn.commit();
-    conn.close();
+    conn.commit()
+    conn.close()
 
     return avList
 

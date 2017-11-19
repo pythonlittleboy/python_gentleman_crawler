@@ -21,6 +21,11 @@ def getAvNumberPic(html):
     for image in images:
         #pic = "http://www.nh87.cn" + pq(image).attr("data-original")
         pic = pq(image).attr("data-original")
+        if not pic:
+            pic = pq(image).attr("data-lazy-src")
+
+        if not pic:
+            raise Error("can not find movie's image url.")
 
         #if not pic.startswith("http://imgs.nh87.cn"):
         #    pic = "http://imgs.nh87.cn" + pic
@@ -54,5 +59,6 @@ def getTexts(elements):
         texts.append(pq(el).text())
     return texts
 
-#html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", False)
-#print(getAvNumberPic(html));
+if __name__ == '__main__':
+    html = htmlIO.readHtml("三上悠亚", "http://www.nh87.cn/sanshangyouya/", False)
+    print(getAvNumberPic(html))

@@ -2,7 +2,7 @@ import os
 
 #folder = "D:\Game\Kodl\download"
 #folder = "\\192.168.1.3\home\drivers\etc\kodl\download"
-folder = "Z:\drivers\etc\kodl\download"
+folder = "/var/services/homes/lijl/drivers/etc/kodl/download"
 
 movieTypes = set(["avi", "mp4", "mkv", "rmvb", "wmv", "iso"])
 

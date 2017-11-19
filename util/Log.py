@@ -1,7 +1,7 @@
 # encoding:utf-8
 import logging, os
 
-path = 'logs/system.log'
+path = '/var/services/homes/lijl/dev/python_gentleman_crawler/logs/system.log'
 logger = logging.getLogger(path)
 logger.setLevel(logging.INFO)
 fmt = logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%Y-%m-%d %H:%M:%S')
@@ -30,6 +30,9 @@ def error(message):
 def critical(message):
     logger.critical(message)
 
+def exception(message):
+    logger.exception(message)
+
 
 if __name__ == '__main__':
     debug('一个debug信息')
@@ -37,3 +40,7 @@ if __name__ == '__main__':
     warn('一个warning信息')
     error('一个error信息')
     critical('一个致命critical信息')
+    try:
+        raise Error("error1")
+    except Exception as e:
+        logger.exception(e)

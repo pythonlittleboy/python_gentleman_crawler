@@ -1,18 +1,19 @@
-
+# -*- coding: UTF-8 -*-
 import os
 import urllib.request
 import util.httpfetch2 as httpfetch2
 from index import SysConst
 from util import Log
+import sys
 
-# SysConst.getImageCachePath()/古川伊织
 
 def getFilePath(actor, avNumber):
     return SysConst.getImageCachePath() + actor + "//" + avNumber + ".jpg"
 
 
 def checkDirPath(actor):
-    path = SysConst.getImageCachePath() + actor;
+    path = SysConst.getImageCachePath() + actor
+    #Log.info(sys.getdefaultencoding() + " path: " + path)
     exist = os.path.exists(path)
     if not exist:
         os.mkdir(path)
@@ -37,10 +38,11 @@ def saveFile(url, filePath):
 
 def saveImage(av):
     actor = av["actor"]
+    shortName = av["short_name"]
     avNumber = av["av_number"]
     url = av["remote_cover"]
     url = url.replace("www.nh87.cn", "imgs.nh87.cn")
-    filePath = getFilePath(actor, avNumber)
+    filePath = getFilePath(shortName, avNumber)
 
     if not(checkFile(filePath)):
         Log.info("begin save file: " + filePath)

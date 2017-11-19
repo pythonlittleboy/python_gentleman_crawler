@@ -1,6 +1,9 @@
+# -*- coding: UTF-8 -*-
+
 import index.MovieDAO as movieDAO
 import index.ImageIO as imageIO
 import index.ActorDAO as actorDAO
+import os
 from util import Log
 
 def downloadPicsByActors(actors):
@@ -11,17 +14,25 @@ def downloadPicsAllActors():
     try:
         Log.info("download pics begins")
         actors = actorDAO.getAllActorsFully()
+        count = 0
         for actor in actors:
-            downloadActor(actor["name"])
+            count = count + downloadActor(actor["short_name"])
+            if count > 1000:
+                break
     except Exception as err:
         Log.error("download pics stopped: ")
-        Log.error(err)
+        Log.exception(err)
 
-def downloadActor(actor):
-    movies = movieDAO.getMoviesByCondition("actor = '" + actor + "' and wrong_pic is null")
-    imageIO.checkDirPath(actor)
+def downloadActor(shortName):
+    movies = movieDAO.getMoviesByCondition("short_name = '" + shortName + "' and wrong_pic is null")
+    imageIO.checkDirPath(shortName)
+
+    count = 0
     for movie in movies:
-        imageIO.saveImage(movie)
+        saved = imageIO.saveImage(movie)
+        if saved:
+            count = count + 1
+    return count
 
 def deleteNotExistImageMovies():
     actors = actorDAO.getAllActorsFully()
