@@ -45,6 +45,11 @@ def updateMovieFile(conn, av):
     cursor.execute("update t_movies set local=?,classic=?,vr=?,trash=? where av_number=?",
                    [local, classic, vr, trash, avNumber])
 
+def markMovieDownload(conn, avNumber):
+    cursor = conn.cursor()
+    cursor.execute("update t_movies set download=1 where av_number=?",
+                   [avNumber])
+
 
 def getAllMovies():
     conn = getConnect()

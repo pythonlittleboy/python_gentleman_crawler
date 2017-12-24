@@ -77,10 +77,33 @@ def tagTrash():
     conn.commit()
     conn.close()
 
+def tagDownload():
+    path = SysConst.getDownloadPath()
+    movieFiles = DiskIndex.getTxts(path)
+    allNumbers = MovieDAO.getAllMovies()
+
+    conn = SysConst.getConnect()
+
+    for avNumber in allNumbers:
+        name = avNumber.lower()
+        first = name[0:name.find('-')]
+        second = name[name.find('-') + 1:]
+        for file in movieFiles:
+            filename = file["filename"].lower()
+            if filename.find(first) > -1 and filename.find(second) > -1:
+                print("find " + name + " : " + file["fullpath"])
+                movieFiles.remove(file)
+                MovieDAO.markMovieDownload(conn, avNumber.upper())
+                break
+
+    conn.commit()
+    conn.close()
+
 def tagAll():
     tagTrash()
     tagClassic()
     tagVR()
+    tagDownload()
 
 
-tagAll();
+tagAll()

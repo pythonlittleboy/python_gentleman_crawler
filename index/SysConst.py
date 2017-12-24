@@ -18,6 +18,10 @@ def getVRPath():
 def getClassicPath():
     return "/var/services/web/drivers/etc/kodl/classic"
 
+
+def getDownloadPath():
+    return "/var/services/web/drivers/etc/kodl/download"
+
 def getTextPath():
     return "/var/services/web/drivers/etc/kodl/trash"
    

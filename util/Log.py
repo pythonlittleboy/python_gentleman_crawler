@@ -2,6 +2,8 @@
 import logging, os
 
 path = '/var/services/homes/lijl/dev/python_gentleman_crawler/logs/system.log'
+#path = '//192.168.3.8/home/dev/python_gentleman_crawler/logs/system.log'
+
 logger = logging.getLogger(path)
 logger.setLevel(logging.INFO)
 fmt = logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%Y-%m-%d %H:%M:%S')

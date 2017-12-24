@@ -16,11 +16,11 @@ If-None-Match:W/"58d37af5-8d5d"
 Upgrade-Insecure-Requests:1
     """
     headers = {
-        'Host': 'nanrenvip.net',
+        #'Host': 'nanrenvip.co',
         'Cache-Control': 'no-cache',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
-        'Referer': 'http://www.nh87.cn/jingxiangjulia/',
+        #'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
         'Pragma': 'no-cache',
@@ -34,6 +34,7 @@ Upgrade-Insecure-Requests:1
             if errorCount is 2:
                 return None
             time.sleep(2)
+            #Log.info("---------------" + url)
             r = requests.get(url, headers=headers, timeout=60)
             r.encoding = 'utf-8'
             return r.text
@@ -52,7 +53,7 @@ def getImage(url):
         'Cache-Control': 'max-age=0',
         'Accept': 'image/webp,image/*,*/*;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
-        'Referer': 'http://www.nh87.cn/jingxiangjulia/',
+        #'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
         #'Cookie': COOKIE
