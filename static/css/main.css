@@ -5,7 +5,7 @@ body {
 .item {
     float:left;
     cursor: pointer;
-    width: 320px;
+    width: 480px;
 }
 
 .item-img {

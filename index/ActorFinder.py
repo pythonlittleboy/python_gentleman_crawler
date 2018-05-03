@@ -7,7 +7,8 @@ cache = False
 
 def findActors():
     #html = HtmlIO.readHtml("find", "http://nanrenvip.net/find.html", cache)
-    html = HtmlIO.readHtml("find", "http://nanrenvip.co/find.html", cache)
+    #html = HtmlIO.readHtml("find", "http://nanrenvip.co/find.html", cache)
+    html = HtmlIO.readHtml("find", "http://nanrenvip.org/find.html", cache)
 
     if not html or len(html) < 100:
         raise Exception("wrong actors page content")

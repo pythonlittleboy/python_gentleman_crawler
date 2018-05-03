@@ -55,6 +55,7 @@ def getAllActors():
         #url = url.replace("www.nh87.cn", "nanrenvip.net")
         url = url.replace("www.nh87.cn", "nanrenvip.co")
         url = url.replace("nanrenvip.net", "nanrenvip.co")
+        url = url.replace("nanrenvip.co", "nanrenvip.org")
 
         one = {"name": row[0], "url": url, "short_name": row[2]}
         results.append(one)

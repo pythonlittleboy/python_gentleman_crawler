@@ -26,7 +26,7 @@ def saveFileByRequest(url, filePath):
     if img:
         file = open(filePath, "wb")
         file.write(img)
-        file.close();
+        file.close()
     else:
         raise Exception("can not load image: " + url)
 
@@ -42,6 +42,7 @@ def saveImage(av):
     avNumber = av["av_number"]
     url = av["remote_cover"]
     url = url.replace("www.nh87.cn", "imgs.nh87.cn")
+    url = url.replace("//", "")
     filePath = getFilePath(shortName, avNumber)
 
     if not(checkFile(filePath)):

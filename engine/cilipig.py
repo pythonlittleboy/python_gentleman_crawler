@@ -28,17 +28,17 @@ def readMagnet(avNumber):
         return ""
 
     resultList = []
-    # print(content)
+    #print(content)
     for el in content:
-        el = pq(el);
-        # print(el)
+        el = pq(el)
+        #print(el)
         href = el.find("div.item-bar a").eq(0).attr("href")
-        # print(href)
+        #print(href)
         size = el.find("b.yellow-pill").text()
         size = convertToNumber(size)
 
         resultList.append((href, size))
 
     resultList.sort(key=lambda item: item[1], reverse=True)
-    # print(resultList[0][0])
+    #print(resultList[0])
     return resultList[0][0]

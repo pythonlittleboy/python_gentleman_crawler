@@ -52,12 +52,16 @@ def getImage(url):
         #'Host': 'img1.chaomabaida.com',
         'Cache-Control': 'max-age=0',
         'Accept': 'image/webp,image/*,*/*;q=0.8',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+        #'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/7.1.0',
         #'Referer': 'http://www.nh87.cn/jingxiangjulia/',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8',
         #'Cookie': COOKIE
     }
+
+    if not url.startswith("http://"):
+        url = "http://" + url
 
     errorCount = 0
 

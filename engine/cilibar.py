@@ -38,9 +38,9 @@ def readMagnet(avNumber):
         return ""
 
     resultList = []
-    # print(content)
+    #print(content)
     for el in content:
-        el = pq(el);
+        el = pq(el)
         # print(el)
         href = el.find("div.item-title a").eq(0).attr("href")
         # print(href)

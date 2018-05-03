@@ -1,7 +1,7 @@
 # encoding:utf-8
 import logging, os
 
-path = '/var/services/homes/lijl/dev/python_gentleman_crawler/logs/system.log'
+path = '/Users/lijialing/develop/pythonWorkspace/python_gentleman_crawler/logs/system.log'
 #path = '//192.168.3.8/home/dev/python_gentleman_crawler/logs/system.log'
 
 logger = logging.getLogger(path)

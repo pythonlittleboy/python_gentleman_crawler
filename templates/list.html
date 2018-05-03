@@ -24,7 +24,9 @@
         <img v-on:click="pickMovie(item.av_number)" :src="item.src" :title="item.title"/>
       </div>
         <div style="padding: 14px;">
-        <span class="item-title" style="line-height: 36px;">{{item.av_number}} {{item.title}}</span>
+        <span class="item-title" style="line-height: 36px;">{{item.av_number}}</span>
+            <span class="item-title" style="line-height: 36px;">{{item.title}}</span>
+            <span class="item-title" style="line-height: 36px;">{{item.title_cn}}</span>
         <div class="bottom clearfix">
           <el-button type="primary" @click="pickMovie(item.av_number)">Download</el-button>
             <el-button @click="skipMovie(item.av_number)">Remove</el-button>

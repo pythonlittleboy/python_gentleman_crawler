@@ -10,6 +10,8 @@ import traceback
 from ml import BayesTrainingFromDB as bayes
 from index import MovieDAO
 from index import SysConst
+from index import TranslateIO
+import time
 #sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def saveMovieToDB(skipActors):
@@ -38,6 +40,7 @@ def saveMovieToDB(skipActors):
             #print("find new movies: " + str(newMovies))
             if len(allMovies) > 0:
                 ActorDAO.updateLastReadTime(actor["name"])
+                time.sleep(10)
             else:
                 Log.info("not found " + actor["name"] + "'s movies.")
 
@@ -74,3 +77,4 @@ def forcast():
 
 if __name__ =='__main__':
     saveMovieToDB(False)
+    TranslateIO.run_translate()
